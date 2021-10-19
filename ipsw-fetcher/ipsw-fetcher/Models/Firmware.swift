@@ -19,4 +19,6 @@ struct Firmware: Hashable, Codable {
     var filename: String {
         return String(self.url.split(separator:"/").last!)
     }
+    
+    var is_downloaded: Bool
 }

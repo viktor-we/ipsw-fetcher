@@ -3,22 +3,4 @@
    uuid = "2DA1EB70-A89A-4EE1-BED6-BB19E1B73C1A"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0A7C4C5B-A90E-4BC3-BFE6-562B537958C0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ipsw-fetcher/Data/DeviceData.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "find_exisiting_firmware_in_firmware_verion(firmware_version_index:firmware_to_find:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

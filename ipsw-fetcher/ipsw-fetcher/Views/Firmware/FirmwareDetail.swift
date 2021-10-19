@@ -33,7 +33,6 @@ struct FirmwareDetail: View {
                         Text(deviceData.get_device_name(identifier: firmware.identifier))
                             .font(.title)
                             .padding(.bottom,0.5)
-                            //.foregroundColor(firmware.signed ? Color.green : Color.red)
                         Text(firmware.buildid)
                     }
                     Spacer()
@@ -41,6 +40,11 @@ struct FirmwareDetail: View {
                         let filesize = Float(firmware.filesize) / 1024 / 1024 / 1024
                         Text(String(format:"%.2f GB", filesize))
                         Text(firmware.filename)
+                    }
+                    if (firmware.is_downloaded) {
+                        Image(systemName: "arrow.down.to.line.compact")
+                    } else {
+                        Image(systemName: "arrow.down")
                     }
                 }
                 .padding(.bottom,5)

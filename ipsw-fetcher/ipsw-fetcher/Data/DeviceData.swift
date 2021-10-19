@@ -179,7 +179,7 @@ final class DeviceData: ObservableObject {
                 new_firmwares.append(Firmware(identifier: firmware_json.identifier, version: firmware_json.version, buildid: firmware_json.buildid,
                                               sha1sum: firmware_json.sha1sum, md5sum: firmware_json.md5sum, sha256sum: firmware_json.sha256sum,
                                               url: firmware_json.url, filesize: firmware_json.filesize, signed: firmware_json.signed,
-                                              device_name: name_of_device_identifier, os_name: os_name))
+                                              device_name: name_of_device_identifier, os_name: os_name, is_downloaded: false))
             }
             self.devices[index_of_device_identifier].firmwares = new_firmwares
             
@@ -314,8 +314,19 @@ final class DeviceData: ObservableObject {
         }
     }
     
-    func delete_local_file(_ filename: String) {
+    func delete_local_file_iphone(_ filename: String) {
         let path = local_files_iphone_path.appendingPathComponent(filename)
+        print(path)
+        do {
+            try fm.removeItem(at: path)
+        } catch {
+            print("file could not be deleted")
+        }
+        fetch_local_files()
+    }
+    
+    func delete_local_file_ipad(_ filename:String) {
+        let path = local_files_ipad_path.appendingPathComponent(filename)
         print(path)
         do {
             try fm.removeItem(at: path)

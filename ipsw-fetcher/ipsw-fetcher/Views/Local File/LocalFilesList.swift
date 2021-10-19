@@ -15,12 +15,12 @@ struct FilesList: View {
         List {
             Section(header:Text("iPhone Software Updates")) {
                 ForEach(deviceData.local_files_iphone, id:\.id) { localFile in
-                    LocalFilesRow(localFile: localFile)
+                    LocalFilesRow(localFile: localFile, device_type: "iOS")
                 }
             }
             Section(header:Text("iPad Software Updates")) {
                 ForEach(deviceData.local_files_ipad, id:\.id) { localFile in
-                    LocalFilesRow(localFile: localFile)
+                    LocalFilesRow(localFile: localFile, device_type: "iPadOS")
                 }
             }
         }

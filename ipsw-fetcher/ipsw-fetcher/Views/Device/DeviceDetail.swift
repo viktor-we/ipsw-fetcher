@@ -70,6 +70,11 @@ struct DeviceDetail: View {
                         Text(String(format:"%.2f GB", filesize))
                         Text(String(firmware.url.split(separator:"/").last!))
                     }
+                    if (firmware.is_downloaded) {
+                        Image(systemName: "arrow.down.to.line.compact")
+                    } else {
+                        Image(systemName: "arrow.down")
+                    }
                 }
                 .padding(.bottom,5)
             }
