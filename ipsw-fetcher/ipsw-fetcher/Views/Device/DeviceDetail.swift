@@ -9,24 +9,9 @@ import SwiftUI
 
 struct DeviceDetail: View {
     
-    var device: Device
+    @EnvironmentObject var device_data: DeviceData
     
-    var os_name: String {
-        if device.name.contains("iPhone") {
-            return "iOS"
-        } else if device.name.contains("iPod") {
-            return "iPadOS"
-        } else if device.name.contains("iPad") {
-            return "iPadOS"
-        } else if device.name.contains("Mac") {
-            return "macOS"
-        } else if device.name.contains("Apple TV") {
-            return "tvOS"
-        } else if device.name.contains("HomePod") {
-            return "audioOS"
-        }
-        return "OS"
-    }
+    var device: Device
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -43,19 +28,15 @@ struct DeviceDetail: View {
                 Spacer()
                 VStack(alignment: .leading) {
                     Text("Current \(device.os_name) version:")
-                    if let version = device.firmwares.first?.version {
-                        Text("\(device.os_name) \(version)")
-                            .font(.title)
-                    } else {
-                        Text("No version found")
-                    }
+                    Text(device_data.get_latest_firmware_for_device(identifier: device.identifier))
+                        .font(.title2)
                 }
             }
             .padding()
             Text("Firmwares:")
                 .font(.title)
                 .padding(.leading)
-            List(device.firmwares, id: \.buildid) { firmware in
+            List(device_data.get_firmwares_for_device(identifier: device.identifier), id: \.buildid) { firmware in
                 HStack {
                     VStack(alignment: .leading) {
                         Text("\(device.os_name) \(firmware.version)")
@@ -68,13 +49,14 @@ struct DeviceDetail: View {
                     VStack(alignment: .trailing) {
                         let filesize = Float(firmware.filesize) / 1024 / 1024 / 1024
                         Text(String(format:"%.2f GB", filesize))
-                        Text(String(firmware.url.split(separator:"/").last!))
+                        Text(firmware.filename)
                     }
-                    if (firmware.is_downloaded) {
-                        Image(systemName: "arrow.down.to.line.compact")
-                    } else {
-                        Image(systemName: "arrow.down")
+                    Button(action: {
+                        device_data.download_firmware(firmware: firmware)
+                    }) {
+                        Image(systemName: firmware.is_downloaded ? "arrow.down.to.line.compact" : "arrow.down")
                     }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.bottom,5)
             }

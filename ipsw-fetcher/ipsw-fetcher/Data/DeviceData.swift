@@ -57,38 +57,58 @@ final class DeviceData: ObservableObject {
         }
     }
     
-    @Published var firmware_versions = [FirmwareVersion]() {
-        didSet {
-            self.save_firmwares_model()
-        }
-    }
+    @Published var firmware_versions = [FirmwareVersion]()
+    
+    @Published var firmwares = [Firmware]()
     
     @Published var local_files_iphone = [LocalFile]()
+    
     @Published var local_files_ipad = [LocalFile]()
     
+    @Published var download_tasks = [DownloadTask]()
+    
     init() {
-        if !fm.fileExists(atPath: devicesPath.path) {
-            fetch_devices()
+        if (fm.fileExists(atPath: devicesPath.path)) {
+            self.load_devices_model()
         } else {
-            load_devices_model()
+            self.fetch_devices_from_api()
         }
-        if !fm.fileExists(atPath: firmwaresPath.path) {
-            find_firmware_versions()
+        if (fm.fileExists(atPath: firmwaresPath.path)) {
+            self.load_firmwares_model()
         } else {
-            load_firmwares_model()
+            self.fetch_firmwares_from_api()
         }
-        fetch_local_files()
+        self.find_firmware_versions()
+        self.fetch_local_files()
+        self.find_downloaded_firmwares()
     }
     
-    func fetch_devices() {
+    // DEVICES
+    
+    func fetch_devices_from_api() {
+        var new_devices = [Device]()
         var request = URLRequest(url: url_devices)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
+        let sem = DispatchSemaphore.init(value: 0)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            defer {
+                sem.signal()
+            }
             if response != nil {
                 if let data = data {
-                    DispatchQueue.main.async {
-                        self.update_devices(data: data)
+                    let devices_json: [DeviceJSON] = decode(data)
+                    for device_json in devices_json {
+                        var existing = false
+                        for device in self.devices {
+                            if device_json.identifier == device.identifier {
+                                existing = true
+                            }
+                        }
+                        if !existing {
+                            if !(device_json.name.contains("iBridge") || device_json.name.contains("Developer Transition Kit")) {
+                                new_devices.append(Device(identifier: device_json.identifier, name: device_json.name))
+                            }
+                        }
                     }
                 }
             } else {
@@ -96,43 +116,32 @@ final class DeviceData: ObservableObject {
             }
         }
         task.resume()
+        sem.wait()
+        self.devices.append(contentsOf: new_devices)
     }
     
-    func update_devices(data: Data) {
-        let devicesFromJson: [DeviceJSON] = decode(data)
-        self.devices.append(contentsOf: self.find_new_devices(devices: self.devices, devicesJSON: devicesFromJson))
-        
-        fetch_firmwares_for_devices()
-    }
+    // FIRMWARES
     
-    func find_new_devices(devices: [Device], devicesJSON: [DeviceJSON]) -> [Device] {
-        var new_devices = [Device]()
-        for deviceJSON in devicesJSON {
-            var existing = false
-            for device in devices {
-                if deviceJSON.identifier == device.identifier {
-                    existing = true
-                }
-            }
-            if !existing {
-                if !(deviceJSON.name.contains("iBridge") || deviceJSON.name.contains("Developer Transition Kit")) {
-                    new_devices.append(Device(identifier: deviceJSON.identifier, name: deviceJSON.name))
-                }
-            }
-        }
-        return new_devices
-    }
-    
-    func fetch_firmwares_for_devices() {
-        for device in devices {
+    func fetch_firmwares_from_api() {
+        var new_firmwares = [Firmware]()
+        for device in self.devices {
             let url_firmware = url_firmware_for_device.appendingPathComponent(device.identifier)
             var request = URLRequest(url: url_firmware)
             request.addValue("application/json", forHTTPHeaderField: "Accept")
+            let sem = DispatchSemaphore.init(value: 0)
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                defer {
+                    sem.signal()
+                }
                 if response != nil {
                     if let data = data {
-                        DispatchQueue.main.async {
-                            self.update_firmwares_for_device(data: data, device_identifier: device.identifier)
+                        let decoded_model: FirmwaresForDeviceJSON = decode(data)
+                        for decoded_firmware in decoded_model.firmwares {
+                            let firmware = Firmware(identifier: decoded_firmware.identifier, version: decoded_firmware.version, buildid: decoded_firmware.buildid,
+                                                    sha1sum: decoded_firmware.sha1sum, md5sum: decoded_firmware.md5sum, sha256sum: decoded_firmware.sha256sum,
+                                                    url: decoded_firmware.url, filesize: decoded_firmware.filesize, signed: decoded_firmware.signed,
+                                                    device_name: device.name, os_name: device.os_name, filename: String(decoded_firmware.url.path.split(separator:"/").last!), is_downloaded: false)
+                            new_firmwares.append(firmware)
                         }
                     }
                 } else {
@@ -140,109 +149,68 @@ final class DeviceData: ObservableObject {
                 }
             }
             task.resume()
+            sem.wait()
         }
+        firmwares = new_firmwares
+        self.save_firmwares_model()
     }
     
-    func update_firmwares_for_device(data: Data, device_identifier: String) {
-        let device_json: FirmwareDeviceJSON = decode(data)
-        let index_of_device_identifier = self.find_index(device_identifier: device_identifier)
-        let name_of_device_identifier = self.get_device_name(identifier: device_identifier)
-        var os_name = "OS"
-        if name_of_device_identifier.contains("iPhone") {
-            os_name = "iOS"
-        } else if name_of_device_identifier.contains("iPod") {
-            os_name = "iOS"
-        } else if name_of_device_identifier.contains("iPad") {
-            os_name = "iPadOS"
-        } else if name_of_device_identifier.contains("Mac") {
-            os_name = "macOS"
-        } else if name_of_device_identifier.contains("Apple TV") {
-            os_name = "tvOS"
-        } else if name_of_device_identifier.contains("HomePod") {
-            os_name = "audioOS"
-        } else if name_of_device_identifier.contains("Apple Watch") {
-            os_name = "watchOS"
+    func get_firmwares_for_device(identifier: String) -> [Firmware] {
+        var return_value = [Firmware]()
+        for firmware in firmwares {
+            if firmware.identifier == identifier {
+                return_value.append(firmware)
+            }
         }
-        
-        var existing_firmware = false
-        for firmware_json in device_json.firmwares {
-            for firmware in self.devices[index_of_device_identifier].firmwares {
-                if firmware_json.buildid != firmware.buildid {
-                    existing_firmware = true
+        return return_value
+    }
+    
+    func get_firmwares_for_version(version: String, os_name:String) -> [Firmware] {
+        var return_value = [Firmware]()
+        for firmware in self.firmwares {
+            if firmware.signed {
+                if (firmware.version == version && firmware.os_name == os_name) {
+                    return_value.append(firmware)
                 }
             }
         }
-        
-        if !existing_firmware {
-            var new_firmwares = [Firmware]()
-            for firmware_json in device_json.firmwares {
-                new_firmwares.append(Firmware(identifier: firmware_json.identifier, version: firmware_json.version, buildid: firmware_json.buildid,
-                                              sha1sum: firmware_json.sha1sum, md5sum: firmware_json.md5sum, sha256sum: firmware_json.sha256sum,
-                                              url: firmware_json.url, filesize: firmware_json.filesize, signed: firmware_json.signed,
-                                              device_name: name_of_device_identifier, os_name: os_name, is_downloaded: false))
-            }
-            self.devices[index_of_device_identifier].firmwares = new_firmwares
-            
-        }
+        return return_value
     }
     
-    func find_index(device_identifier: String) -> Int {
-        for i in 0..<self.devices.count {
-            if self.devices[i].identifier == device_identifier {
-                return i
+    func get_latest_firmware_for_device(identifier: String) -> String {
+        for firmware in firmwares {
+            if firmware.identifier == identifier {
+                return "\(firmware.os_name) \(firmware.version)"
             }
         }
-        return Int.max
+        return "None"
     }
+    
+    // FIRMWARE VERSIONS LIST
     
     func find_firmware_versions() {
-        for device in devices {
-            for firmware in device.firmwares {
-                if (firmware.signed) {
-                    let index = find_existing_firmware_version(os_name: firmware.os_name, version: firmware.version)
-                    if index == -1 {
-                        var new_firmware_version = FirmwareVersion(id: firmware_versions.count, version: firmware.version, buildid: firmware.buildid, os_name: firmware.os_name)
-                        new_firmware_version.firmwares.append(firmware)
-                        firmware_versions.append(new_firmware_version)
-                    } else {
-                        if !find_exisiting_firmware_in_firmware_verion(firmware_version_index: index, firmware_to_find: firmware) {
-                            firmware_versions[index].firmwares.append(firmware)
-                        }
-                    }
+        for firmware in self.firmwares {
+            if (firmware.signed) {
+                if !self.find_existing_firmware_version(os_name: firmware.os_name, version: firmware.version) {
+                    self.firmware_versions.append(FirmwareVersion(id: self.firmware_versions.count, version: firmware.version, buildid: firmware.buildid, os_name: firmware.os_name))
+                    
                 }
             }
         }
     }
     
-    func find_existing_firmware_version(os_name: String, version: String) -> Int {
-        for i in 0..<firmware_versions.count {
-            if (firmware_versions[i].version == version) {
-                if (firmware_versions[i].os_name == os_name) {
-                    return i
+    func find_existing_firmware_version(os_name: String, version: String) -> Bool {
+        for firmware_version in firmware_versions {
+            if firmware_version.version == version {
+                if firmware_version.os_name == os_name {
+                    return true
                 }
             }
         }
-        return -1
+        return false
     }
     
-    func find_exisiting_firmware_in_firmware_verion(firmware_version_index: Int, firmware_to_find: Firmware) -> Bool {
-        var exisiting = false
-        for firmware in firmware_versions[firmware_version_index].firmwares {
-            if firmware.identifier == firmware_to_find.identifier {
-                exisiting = true
-            }
-        }
-        return exisiting
-    }
-    
-    func get_device_name(identifier: String) -> String {
-        for i in 0..<devices.count {
-            if devices[i].identifier == identifier {
-                return devices[i].name
-            }
-        }
-        return "No Name found"
-    }
+    // Load/Save
     
     func load_devices_model() {
         let data: Data
@@ -252,13 +220,11 @@ final class DeviceData: ObservableObject {
             fatalError("Couldn't find file.")
         }
         self.devices = decode(data)
-        
     }
     
     func save_devices_model() {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        
         do {
             let data = try encoder.encode(devices)
             try data.write(to: devicesPath)
@@ -274,49 +240,27 @@ final class DeviceData: ObservableObject {
         } catch {
             fatalError("Couldn't find file.")
         }
-        self.firmware_versions = decode(data)
-        
+        self.firmwares = decode(data)
     }
     
     func save_firmwares_model() {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        
         do {
-            let data = try encoder.encode(firmware_versions)
+            let data = try encoder.encode(self.firmwares)
             try data.write(to: firmwaresPath)
         } catch {
             print("Error while encoding to JSON")
         }
     }
     
-    func fetch_local_files() {
-        local_files_iphone = [LocalFile]()
-        do {
-            let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
-            for i in 0..<localFilesStrings.count {
-                let fileName = localFilesStrings[i].absoluteString
-                local_files_iphone.append(LocalFile(id: i, name: String(fileName.split(separator:"/").last!)))
-            }
-        } catch {
-            print("Local Files not found")
-        }
-        
-        local_files_ipad = [LocalFile]()
-        do {
-            let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_ipad_path,includingPropertiesForKeys: nil, options: []))
-            for i in 0..<localFilesStrings.count {
-                let fileName = localFilesStrings[i].absoluteString
-                local_files_ipad.append(LocalFile(id: i, name: String(fileName.split(separator:"/").last!)))
-            }
-        } catch {
-            print("Local Files not found")
-        }
-    }
-    
     func delete_local_file_iphone(_ filename: String) {
         let path = local_files_iphone_path.appendingPathComponent(filename)
-        print(path)
+        for i in 0..<firmwares.count {
+            if firmwares[i].filename == filename {
+                firmwares[i].is_downloaded = false
+            }
+        }
         do {
             try fm.removeItem(at: path)
         } catch {
@@ -327,7 +271,11 @@ final class DeviceData: ObservableObject {
     
     func delete_local_file_ipad(_ filename:String) {
         let path = local_files_ipad_path.appendingPathComponent(filename)
-        print(path)
+        for i in 0..<firmwares.count {
+            if firmwares[i].filename == filename {
+                firmwares[i].is_downloaded = false
+            }
+        }
         do {
             try fm.removeItem(at: path)
         } catch {
@@ -336,4 +284,99 @@ final class DeviceData: ObservableObject {
         fetch_local_files()
     }
     
+    // Local files
+    
+    func fetch_local_files() {
+        DispatchQueue.main.async {
+            self.local_files_iphone = [LocalFile]()
+            do {
+                let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
+                for i in 0..<localFilesStrings.count {
+                    let fileName = localFilesStrings[i].absoluteString
+                    self.local_files_iphone.append(LocalFile(id: i, name: String(fileName.split(separator:"/").last!)))
+                }
+            } catch {
+                print("Local Files not found")
+            }
+            
+            self.local_files_ipad = [LocalFile]()
+            do {
+                let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_ipad_path,includingPropertiesForKeys: nil, options: []))
+                for i in 0..<localFilesStrings.count {
+                    let fileName = localFilesStrings[i].absoluteString
+                    self.local_files_ipad.append(LocalFile(id: i, name: String(fileName.split(separator:"/").last!)))
+                }
+            } catch {
+                print("Local Files not found")
+            }
+            self.find_downloaded_firmwares()
+        }
+    }
+    
+    func find_downloaded_firmwares() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            for i in 0..<self.firmwares.count {
+                var is_downloaded = false
+                if self.firmwares[i].os_name == "iOS" {
+                    for local_file_iphone in self.local_files_iphone {
+                        if (self.firmwares[i].filename == local_file_iphone.name) {
+                            is_downloaded = true
+                        }
+                    }
+                } else if self.firmwares[i].os_name == "iPadOS" {
+                    for local_file_ipad in self.local_files_ipad {
+                        if (self.firmwares[i].filename == local_file_ipad.name) {
+                            is_downloaded = true
+                        }
+                    }
+                }
+                if (self.firmwares[i].is_downloaded != is_downloaded){
+                    DispatchQueue.main.async {
+                        self.firmwares[i].is_downloaded = is_downloaded
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    func download_firmware(firmware: Firmware) {
+        var download_existing = false
+        for download_task in download_tasks {
+            if download_task.filename == firmware.filename {
+                download_existing = true
+            }
+        }
+        if !download_existing {
+            self.download_tasks.append(DownloadTask(filename: firmware.filename, filesize: firmware.filesize, url: firmware.url, os_name: firmware.os_name))
+        }
+    }
+    
+    func delete_download(download_task: DownloadTask) {
+        var index = -1
+        for i in 0..<download_tasks.count {
+            if download_task.id == download_tasks[i].id {
+                index = i
+            }
+        }
+        if index != -1 {
+            download_tasks.remove(at: index)
+        }
+    }
+    
+    func start_every_download() {
+        for download_task in download_tasks {
+            download_task.resume_download()
+        }
+    }
+    
+    func cancel_every_download() {
+        for download_task in download_tasks {
+            download_task.cancel_download()
+        }
+    }
+    
+    func delete_every_download() {
+        download_tasks = [DownloadTask]()
+    }
 }

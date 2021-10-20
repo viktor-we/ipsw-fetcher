@@ -22,15 +22,23 @@ struct FirmwareDetail: View {
                     .frame(width: 40, height: 40)
                 Text("\(firmware_version.os_name) \(firmware_version.version)")
                     .font(.title)
+                Spacer()
+                Button(action: {
+                    for firmware in (deviceData.get_firmwares_for_version(version: firmware_version.version, os_name: firmware_version.os_name)) { 
+                        deviceData.download_firmware(firmware: firmware)
+                    }
+                }) {
+                    Text("Download Firmwares")
+                }
             }
             .padding()
             Text("Used by:")
                 .font(.title)
                 .padding()
-            List(firmware_version.firmwares, id: \.identifier) { firmware in
+            List(deviceData.get_firmwares_for_version(version: firmware_version.version, os_name: firmware_version.os_name), id: \.identifier) { firmware in
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(deviceData.get_device_name(identifier: firmware.identifier))
+                        Text(firmware.device_name)
                             .font(.title)
                             .padding(.bottom,0.5)
                         Text(firmware.buildid)

@@ -16,6 +16,8 @@ struct ListView: View {
             FirmwaresList()
         } else if (sidebarOption.id == 2){
             FilesList()
+        } else if (sidebarOption.id == 3){
+            DownloadList()
         }
     }
 }
