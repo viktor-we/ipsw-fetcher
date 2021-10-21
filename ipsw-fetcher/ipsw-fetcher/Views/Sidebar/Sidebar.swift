@@ -13,7 +13,7 @@ struct Sidebar: View {
     
     let sidebarOptions = [SidebarOption(id: 0, title: "Devices", icon_name: "iphone"),
                           SidebarOption(id: 1, title: "Firmwares", icon_name: "iphone.and.arrow.forward"),
-                          SidebarOption(id: 2, title: "Files", icon_name: "doc"),
+                          SidebarOption(id: 2, title: "Local Files", icon_name: "doc"),
                           SidebarOption(id: 3, title: "Downloads", icon_name: "arrow.down.app")]
     
     var body: some View {

@@ -72,9 +72,8 @@ struct DevicesList: View {
                     deviceData.fetch_firmwares_from_api()
                     deviceData.find_firmware_versions()
                 }) {
-                    Image(systemName: "arrow.triangle.2.circlepath")
+                    Text("Update Devices")
                 }
-                .buttonStyle(PlainButtonStyle())
         }
         }
     }

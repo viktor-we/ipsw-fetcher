@@ -28,7 +28,7 @@ struct FirmwareDetail: View {
                         deviceData.download_firmware(firmware: firmware)
                     }
                 }) {
-                    Text("Download Firmwares")
+                    Text("Add all")
                 }
             }
             .padding()
@@ -49,10 +49,11 @@ struct FirmwareDetail: View {
                         Text(String(format:"%.2f GB", filesize))
                         Text(firmware.filename)
                     }
-                    if (firmware.is_downloaded) {
-                        Image(systemName: "arrow.down.to.line.compact")
-                    } else {
-                        Image(systemName: "arrow.down")
+                    Image(systemName: firmware.is_downloaded ? "arrow.down.to.line.compact" : "arrow.down")
+                    Button(action: {
+                        deviceData.download_firmware(firmware: firmware)
+                    }) {
+                        Text("Add to Downloads")
                     }
                 }
                 .padding(.bottom,5)

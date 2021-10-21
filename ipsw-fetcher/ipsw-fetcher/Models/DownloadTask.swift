@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DownloadTask {
+final class DownloadTask: ObservableObject {
     var id = UUID()
     var filename: String
     var filesize: Int
@@ -16,7 +16,10 @@ final class DownloadTask {
     
     var task: URLSessionDownloadTask?
     var observer: NSKeyValueObservation?
-    var downloading = false
+    
+    @Published var downloading = false
+    @Published var progress = 0.0
+    @Published var downloaded_size = 0
     
     init(filename: String, filesize: Int, url: URL, os_name: String) {
         self.filename = filename
@@ -36,10 +39,16 @@ final class DownloadTask {
         task = URLSession.shared.downloadTask(with: self.url) { local_url, url_resonse, error in
             if let local_url = local_url {
                 do {
-                    try fm.copyItem(at: local_url, to: save_path.appendingPathComponent(self.filename))
+                    try fm.moveItem(at: local_url, to: save_path.appendingPathComponent(self.filename))
                 } catch {
                     print("could not copy")
                 }
+            }
+        }
+        observer = task?.progress.observe(\.fractionCompleted) { download_progress, _ in
+            DispatchQueue.main.async {
+                self.progress = download_progress.fractionCompleted
+                self.downloaded_size = Int(Double(self.filesize) * self.progress)
             }
         }
     }
@@ -51,7 +60,10 @@ final class DownloadTask {
     
     func cancel_download() {
         self.downloading = false
+        self.observer = nil
         self.task?.cancel()
+        self.task = nil
+        self.progress = 0.0
         self.create_task()
     }
 }

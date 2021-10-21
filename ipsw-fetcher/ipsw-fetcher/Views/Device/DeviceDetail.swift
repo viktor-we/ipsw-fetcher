@@ -51,12 +51,12 @@ struct DeviceDetail: View {
                         Text(String(format:"%.2f GB", filesize))
                         Text(firmware.filename)
                     }
+                    Image(systemName: firmware.is_downloaded ? "arrow.down.to.line.compact" : "arrow.down")
                     Button(action: {
                         device_data.download_firmware(firmware: firmware)
                     }) {
-                        Image(systemName: firmware.is_downloaded ? "arrow.down.to.line.compact" : "arrow.down")
+                        Text("Add to Downloads")
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.bottom,5)
             }

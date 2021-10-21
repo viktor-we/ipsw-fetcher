@@ -11,32 +11,30 @@ struct DownloadRow: View {
     
     @EnvironmentObject var data: DeviceData
     
-    @State var download_task: DownloadTask
-    
-    @State private var progress: Double = 0.0
-    
-    @State private var observer: NSKeyValueObservation?
+    @ObservedObject var download_task: DownloadTask
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(download_task.filename)
+                    .font(.title)
                 Text(String(format:"%.2f GB", Float(download_task.filesize) / 1024 / 1024 / 1024))
                     .font(.caption)
             }
             Spacer()
+            if (download_task.downloading) {
+                Text(String(format:"%.2f GB / %.2f GB", Float(download_task.downloaded_size) / 1024 / 1024 / 1024, Float(download_task.filesize) / 1024 / 1024 / 1024))
+                    .font(.caption)
+                ProgressView(value:download_task.progress)
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding([.leading,.trailing])
+                    .scaleEffect(x: 2, y: 2, anchor: .center)
+            }
             Button(action: {
                 if (download_task.downloading) {
-                    observer?.invalidate()
                     download_task.cancel_download()
-                    progress = 0.0
                 } else {
                     download_task.resume_download()
-                    observer = download_task.task?.progress.observe(\.fractionCompleted) { download_progress, _ in
-                        DispatchQueue.main.async {
-                            self.progress = download_progress.fractionCompleted
-                        }
-                    }
                 }
             }) {
                 Text(download_task.downloading ? "Cancel Download" : "Start Download")
@@ -44,21 +42,10 @@ struct DownloadRow: View {
             Button(action: {
                 data.delete_download(download_task: download_task)
             }) {
-                Text("Delete Download")
-            }
-            ProgressView(value:progress)
-                .progressViewStyle(CircularProgressViewStyle())
-                .padding()
-        }
-        .onAppear {
-            if (download_task.downloading) {
-                observer = download_task.task?.progress.observe(\.fractionCompleted) { download_progress, _ in
-                    DispatchQueue.main.async {
-                        self.progress = download_progress.fractionCompleted
-                    }
-                }
+                Text("Delete from list")
             }
         }
+        .padding()
     }
 }
 

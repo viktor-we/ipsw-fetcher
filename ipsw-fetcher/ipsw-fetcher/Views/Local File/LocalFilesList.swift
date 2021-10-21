@@ -28,9 +28,8 @@ struct FilesList: View {
             Button(action: {
                 deviceData.fetch_local_files()
             }) {
-                Image(systemName: "arrow.triangle.2.circlepath")
+                Text("Update Local Files")
             }
-            .buttonStyle(PlainButtonStyle())
         }
     }
 }
