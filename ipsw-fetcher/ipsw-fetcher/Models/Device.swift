@@ -12,13 +12,11 @@ struct Device: Hashable, Codable {
     var name: String
     var isFavorite: Bool = false
     
-    var firmwares: [Firmware] = [Firmware]()
-    
     var os_name: String {
         if self.name.contains("iPhone") {
             return "iOS"
         } else if self.name.contains("iPod") {
-            return "iPadOS"
+            return "iOS"
         } else if self.name.contains("iPad") {
             return "iPadOS"
         } else if self.name.contains("Mac") {

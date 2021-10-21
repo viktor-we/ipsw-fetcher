@@ -60,9 +60,8 @@ struct FirmwaresList: View {
                 Button(action: {
                     deviceData.find_firmware_versions()
                 }) {
-                    Image(systemName: "arrow.triangle.2.circlepath")
+                    Text("Update Firmwares")
                 }
-                .buttonStyle(PlainButtonStyle())
             }
         }
     }

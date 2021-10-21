@@ -12,8 +12,9 @@ struct Sidebar: View {
     @State private var selectedSidebarOption: SidebarOption?
     
     let sidebarOptions = [SidebarOption(id: 0, title: "Devices", icon_name: "iphone"),
-                          SidebarOption(id:1, title: "Firmwares", icon_name: "iphone.and.arrow.forward"),
-                          SidebarOption(id: 2, title: "Files", icon_name: "doc")]
+                          SidebarOption(id: 1, title: "Firmwares", icon_name: "iphone.and.arrow.forward"),
+                          SidebarOption(id: 2, title: "Local Files", icon_name: "doc"),
+                          SidebarOption(id: 3, title: "Downloads", icon_name: "arrow.down.app")]
     
     var body: some View {
         NavigationView {
@@ -26,7 +27,7 @@ struct Sidebar: View {
                 }
             }
             .listStyle(SidebarListStyle())
-            .frame(minWidth:150)
+            .frame(minWidth:200)
             .toolbar {
                 Text("")
             }

@@ -20,6 +20,10 @@
 		8A0A338F271611030058C8A3 /* Firmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A338E271611030058C8A3 /* Firmware.swift */; };
 		8A0A3393271611D20058C8A3 /* FirmwaresList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3392271611D20058C8A3 /* FirmwaresList.swift */; };
 		8A0A3395271612040058C8A3 /* FirmwareRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3394271612040058C8A3 /* FirmwareRow.swift */; };
+		8A289926271F042200BA40AF /* FirmwaresForDeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A289925271F042200BA40AF /* FirmwaresForDeviceJSON.swift */; };
+		8A28992B2720159E00BA40AF /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992A2720159E00BA40AF /* DownloadTask.swift */; };
+		8A28992D272017DC00BA40AF /* DownloadList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992C272017DC00BA40AF /* DownloadList.swift */; };
+		8A28992F2720347F00BA40AF /* DownloadRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992E2720347F00BA40AF /* DownloadRow.swift */; };
 		8A4A9ACB2719BD0700B2EF3C /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A9ACA2719BD0700B2EF3C /* DeviceData.swift */; };
 		8A4A9AD12719E59F00B2EF3C /* DeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A9AD02719E59F00B2EF3C /* DeviceJSON.swift */; };
 		8A4A9AD3271AA9A100B2EF3C /* FirmwareJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A9AD2271AA9A100B2EF3C /* FirmwareJSON.swift */; };
@@ -37,7 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8A0A33672715F6EA0058C8A3 /* ipsw-fetcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ipsw-fetcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A0A33672715F6EA0058C8A3 /* IPSW Fetcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IPSW Fetcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A0A336A2715F6EA0058C8A3 /* ipsw_fetcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ipsw_fetcherApp.swift; sourceTree = "<group>"; };
 		8A0A336E2715F6EE0058C8A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A0A33712715F6EE0058C8A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -52,6 +56,11 @@
 		8A0A338E271611030058C8A3 /* Firmware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firmware.swift; sourceTree = "<group>"; };
 		8A0A3392271611D20058C8A3 /* FirmwaresList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwaresList.swift; sourceTree = "<group>"; };
 		8A0A3394271612040058C8A3 /* FirmwareRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareRow.swift; sourceTree = "<group>"; };
+		8A289925271F042200BA40AF /* FirmwaresForDeviceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwaresForDeviceJSON.swift; sourceTree = "<group>"; };
+		8A2899292720120600BA40AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8A28992A2720159E00BA40AF /* DownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
+		8A28992C272017DC00BA40AF /* DownloadList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadList.swift; sourceTree = "<group>"; };
+		8A28992E2720347F00BA40AF /* DownloadRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRow.swift; sourceTree = "<group>"; };
 		8A4A9ACA2719BD0700B2EF3C /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		8A4A9AD02719E59F00B2EF3C /* DeviceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceJSON.swift; sourceTree = "<group>"; };
 		8A4A9AD2271AA9A100B2EF3C /* FirmwareJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareJSON.swift; sourceTree = "<group>"; };
@@ -90,7 +99,7 @@
 		8A0A33682715F6EA0058C8A3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8A0A33672715F6EA0058C8A3 /* ipsw-fetcher.app */,
+				8A0A33672715F6EA0058C8A3 /* IPSW Fetcher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +107,7 @@
 		8A0A33692715F6EA0058C8A3 /* ipsw-fetcher */ = {
 			isa = PBXGroup;
 			children = (
+				8A2899292720120600BA40AF /* Info.plist */,
 				8A0A336A2715F6EA0058C8A3 /* ipsw_fetcherApp.swift */,
 				8A0A33732715F6EE0058C8A3 /* ipsw_fetcher.entitlements */,
 				8A0A33702715F6EE0058C8A3 /* Preview Content */,
@@ -124,6 +134,7 @@
 				8AA72E32271D7FA400350F6A /* Device */,
 				8AA72E33271D7FAD00350F6A /* Firmware */,
 				8AA72E34271D7FB500350F6A /* Local File */,
+				8A2899302720365200BA40AF /* Download */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,6 +147,7 @@
 				8AA72E2A271C26EE00350F6A /* FirmwareVersion.swift */,
 				8ABDF2E827175CB600142C32 /* SidebarOption.swift */,
 				8A7CFD22271889C70065CB12 /* File.swift */,
+				8A28992A2720159E00BA40AF /* DownloadTask.swift */,
 				8AA72E30271D7F8500350F6A /* JSONModels */,
 			);
 			path = Models;
@@ -150,6 +162,15 @@
 				8ABDF2EC271763BC00142C32 /* sidebar.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		8A2899302720365200BA40AF /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				8A28992C272017DC00BA40AF /* DownloadList.swift */,
+				8A28992E2720347F00BA40AF /* DownloadRow.swift */,
+			);
+			path = Download;
 			sourceTree = "<group>";
 		};
 		8A4A9AC92719BB6400B2EF3C /* Data */ = {
@@ -167,6 +188,7 @@
 				8A4A9AD02719E59F00B2EF3C /* DeviceJSON.swift */,
 				8A4A9AD2271AA9A100B2EF3C /* FirmwareJSON.swift */,
 				8AA72E2C271C414200350F6A /* FirmwareDeviceJSON.swift */,
+				8A289925271F042200BA40AF /* FirmwaresForDeviceJSON.swift */,
 			);
 			path = JSONModels;
 			sourceTree = "<group>";
@@ -227,7 +249,7 @@
 			);
 			name = "ipsw-fetcher";
 			productName = "ipsw-fetcher";
-			productReference = 8A0A33672715F6EA0058C8A3 /* ipsw-fetcher.app */;
+			productReference = 8A0A33672715F6EA0058C8A3 /* IPSW Fetcher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -291,13 +313,17 @@
 				8A0A3380271600690058C8A3 /* Device.swift in Sources */,
 				8AA72E2B271C26EE00350F6A /* FirmwareVersion.swift in Sources */,
 				8AA72E2D271C414200350F6A /* FirmwareDeviceJSON.swift in Sources */,
+				8A28992F2720347F00BA40AF /* DownloadRow.swift in Sources */,
 				8A0A33892716038C0058C8A3 /* DeviceList.swift in Sources */,
+				8A28992B2720159E00BA40AF /* DownloadTask.swift in Sources */,
 				8A4A9ACB2719BD0700B2EF3C /* DeviceData.swift in Sources */,
+				8A28992D272017DC00BA40AF /* DownloadList.swift in Sources */,
 				8A0A338B27160DF40058C8A3 /* Sidebar.swift in Sources */,
 				8A0A3393271611D20058C8A3 /* FirmwaresList.swift in Sources */,
 				8A4A9AD12719E59F00B2EF3C /* DeviceJSON.swift in Sources */,
 				8ABDF2F1271772AB00142C32 /* LocalFilesList.swift in Sources */,
 				8A0A337C2715F9600058C8A3 /* DeviceRow.swift in Sources */,
+				8A289926271F042200BA40AF /* FirmwaresForDeviceJSON.swift in Sources */,
 				8A0A336B2715F6EA0058C8A3 /* ipsw_fetcherApp.swift in Sources */,
 				8A7CFD23271889C70065CB12 /* File.swift in Sources */,
 				8ABDF2E727175ABE00142C32 /* SidebarRow.swift in Sources */,
@@ -362,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -417,7 +443,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -432,6 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ipsw-fetcher/ipsw_fetcher.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -440,6 +467,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ipsw-fetcher/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -448,7 +477,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.viktor-we.ipsw-fetcher";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "IPSW Fetcher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -460,6 +489,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "ipsw-fetcher/ipsw_fetcher.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -468,6 +498,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ipsw-fetcher/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -476,7 +508,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.viktor-we.ipsw-fetcher";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "IPSW Fetcher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};

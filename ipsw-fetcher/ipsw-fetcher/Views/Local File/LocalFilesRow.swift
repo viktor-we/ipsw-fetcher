@@ -23,9 +23,8 @@ struct LocalFilesRow: View {
                 default: print("No device type")
                 }
             }) {
-                Image(systemName: "x.circle")
+                Text("Delete File")
             }
-            .buttonStyle(PlainButtonStyle())
         }
     }
 }

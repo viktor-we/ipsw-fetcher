@@ -48,7 +48,6 @@ struct DevicesList: View {
             }
             .frame(minWidth:600)
             .toolbar {
-                //ProgressView("Updating", value: deviceData.progress)
                 Menu {
                     Picker("Sort By", selection: $sorting) {
                         ForEach(SortingCategory.allCases) { category in
@@ -69,11 +68,12 @@ struct DevicesList: View {
                     Label("Filter", systemImage: "slider.horizontal.3")
                 }
                 Button(action: {
-                    deviceData.fetch_devices()
+                    deviceData.fetch_devices_from_api()
+                    deviceData.fetch_firmwares_from_api()
+                    deviceData.find_firmware_versions()
                 }) {
-                    Image(systemName: "arrow.triangle.2.circlepath")
+                    Text("Update Devices")
                 }
-                .buttonStyle(PlainButtonStyle())
         }
         }
     }

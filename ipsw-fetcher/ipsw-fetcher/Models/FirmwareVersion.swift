@@ -8,11 +8,11 @@
 import Foundation
 
 struct FirmwareVersion: Hashable, Codable {
+    
     var id: Int
     var version: String
     var buildid: String
     var os_name: String
-    var firmwares = [Firmware]()
     
     var icon_name: String {
         if (os_name == "macOS") {

@@ -16,17 +16,6 @@ struct DeviceRow: View {
     }
     
     var device: Device
-    
-    var os_name: String {
-        if device.name.contains("iPhone") {
-            return "iOS"
-        } else if device.name.contains("iPad") {
-            return "iPadOS"
-        } else if device.name.contains("Mac") {
-            return "macOS"
-        }
-        return "OS"
-    }
 
     var body: some View {
         HStack {
@@ -42,19 +31,14 @@ struct DeviceRow: View {
                     
                 }
                 Spacer()
-                if let version = device.firmwares.first {
-                    Text("\(version.os_name) \(version.version)")
-                        .font(.title2)
-                } else {
-                    Text("No version found")
-                }
-                
+                Text(deviceData.get_latest_firmware_for_device(identifier: device.identifier))
+                    .font(.title2)
             }
             .padding()
             Button(action: {
                 deviceData.devices[deviceIndex].isFavorite.toggle()
             }) {
-                Image(systemName: device.isFavorite ? "arrow.down.circle.fill" : "arrow.down.circle")
+                Image(systemName: device.isFavorite ? "star.fill" : "star")
             }
             .buttonStyle(PlainButtonStyle())
             .font(.title)
