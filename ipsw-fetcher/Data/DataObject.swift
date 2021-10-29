@@ -163,7 +163,7 @@ final class DataObject: ObservableObject {
         for firmware in self.firmwares {
             if (firmware.signed) {
                 if !self.find_existing_firmware_version(os_name: firmware.os_name, version: firmware.version) {
-                    self.firmware_versions.append(FirmwareVersion(id: self.firmware_versions.count, version: firmware.version, buildid: firmware.buildid, os_name: firmware.os_name))
+                    self.firmware_versions.append(FirmwareVersion(version: firmware.version, buildid: firmware.buildid, os_name: firmware.os_name))
                     
                 }
             }

@@ -9,7 +9,7 @@ import Foundation
 
 struct FirmwareVersion: Hashable, Codable {
     
-    var id: Int
+    var id = UUID()
     var version: String
     var buildid: String
     var os_name: String
