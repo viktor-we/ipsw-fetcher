@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FirmwaresList: View {
+    
     @EnvironmentObject var device_data: DataObject
     
     @State private var selected_firmware: FirmwareVersion?

@@ -9,6 +9,5 @@ import Foundation
 
 struct SidebarOption: Hashable, Codable, Identifiable {
     var id: Int
-    var title: String
-    var icon_name: String
+    var title, icon_name: String
 }

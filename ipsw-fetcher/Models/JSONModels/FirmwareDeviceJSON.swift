@@ -8,7 +8,6 @@
 import Foundation
 
 struct FirmwareDeviceJSON: Hashable, Codable {
-    var name: String
-    var identifier: String
+    var name, identifier: String
     var firmwares: [FirmwareJSON]
 }

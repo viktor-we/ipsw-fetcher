@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct ipsw_fetcherApp: App {
-    @StateObject private var deviceData = DataObject()
+    @StateObject private var data_object = DataObject()
 
     var body: some Scene {
         WindowGroup {
             Sidebar()
-                .environmentObject(deviceData)
+                .environmentObject(data_object)
         }
     }
 }

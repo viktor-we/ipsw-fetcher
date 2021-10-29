@@ -11,12 +11,10 @@
 		8A0A336F2715F6EE0058C8A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A336E2715F6EE0058C8A3 /* Assets.xcassets */; };
 		8A0A33722715F6EE0058C8A3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A33712715F6EE0058C8A3 /* Preview Assets.xcassets */; };
 		8A0A337C2715F9600058C8A3 /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A337B2715F9600058C8A3 /* DeviceRow.swift */; };
-		8A0A337E271600340058C8A3 /* devices.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A337D271600340058C8A3 /* devices.json */; };
 		8A0A3380271600690058C8A3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A337F271600690058C8A3 /* Device.swift */; };
 		8A0A3382271601050058C8A3 /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3381271601050058C8A3 /* SharedData.swift */; };
 		8A0A33892716038C0058C8A3 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A33882716038C0058C8A3 /* DeviceList.swift */; };
 		8A0A338B27160DF40058C8A3 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A338A27160DF40058C8A3 /* Sidebar.swift */; };
-		8A0A338D271610EA0058C8A3 /* firmwares.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A338C271610EA0058C8A3 /* firmwares.json */; };
 		8A0A338F271611030058C8A3 /* Firmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A338E271611030058C8A3 /* Firmware.swift */; };
 		8A0A3393271611D20058C8A3 /* FirmwaresList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3392271611D20058C8A3 /* FirmwaresList.swift */; };
 		8A0A3395271612040058C8A3 /* FirmwareRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3394271612040058C8A3 /* FirmwareRow.swift */; };
@@ -36,7 +34,6 @@
 		8ABDF2E727175ABE00142C32 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2E627175ABE00142C32 /* SidebarRow.swift */; };
 		8ABDF2E927175CB600142C32 /* SidebarOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2E827175CB600142C32 /* SidebarOption.swift */; };
 		8ABDF2EB271762C300142C32 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2EA271762C300142C32 /* ListView.swift */; };
-		8ABDF2ED271763BC00142C32 /* sidebar.json in Resources */ = {isa = PBXBuildFile; fileRef = 8ABDF2EC271763BC00142C32 /* sidebar.json */; };
 		8ABDF2EF271771F600142C32 /* LocalFilesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2EE271771F600142C32 /* LocalFilesRow.swift */; };
 		8ABDF2F1271772AB00142C32 /* LocalFilesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2F0271772AB00142C32 /* LocalFilesList.swift */; };
 /* End PBXBuildFile section */
@@ -48,12 +45,10 @@
 		8A0A33712715F6EE0058C8A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8A0A33732715F6EE0058C8A3 /* ipsw_fetcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ipsw_fetcher.entitlements; sourceTree = "<group>"; };
 		8A0A337B2715F9600058C8A3 /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
-		8A0A337D271600340058C8A3 /* devices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = devices.json; sourceTree = "<group>"; };
 		8A0A337F271600690058C8A3 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8A0A3381271601050058C8A3 /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
 		8A0A33882716038C0058C8A3 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		8A0A338A27160DF40058C8A3 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
-		8A0A338C271610EA0058C8A3 /* firmwares.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = firmwares.json; sourceTree = "<group>"; };
 		8A0A338E271611030058C8A3 /* Firmware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firmware.swift; sourceTree = "<group>"; };
 		8A0A3392271611D20058C8A3 /* FirmwaresList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwaresList.swift; sourceTree = "<group>"; };
 		8A0A3394271612040058C8A3 /* FirmwareRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareRow.swift; sourceTree = "<group>"; };
@@ -74,7 +69,6 @@
 		8ABDF2E627175ABE00142C32 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		8ABDF2E827175CB600142C32 /* SidebarOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOption.swift; sourceTree = "<group>"; };
 		8ABDF2EA271762C300142C32 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		8ABDF2EC271763BC00142C32 /* sidebar.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sidebar.json; sourceTree = "<group>"; };
 		8ABDF2EE271771F600142C32 /* LocalFilesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFilesRow.swift; sourceTree = "<group>"; };
 		8ABDF2F0271772AB00142C32 /* LocalFilesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFilesList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,9 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				8A0A336E2715F6EE0058C8A3 /* Assets.xcassets */,
-				8A0A337D271600340058C8A3 /* devices.json */,
-				8A0A338C271610EA0058C8A3 /* firmwares.json */,
-				8ABDF2EC271763BC00142C32 /* sidebar.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -293,9 +284,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A0A337E271600340058C8A3 /* devices.json in Resources */,
-				8A0A338D271610EA0058C8A3 /* firmwares.json in Resources */,
-				8ABDF2ED271763BC00142C32 /* sidebar.json in Resources */,
 				8A0A33722715F6EE0058C8A3 /* Preview Assets.xcassets in Resources */,
 				8A0A336F2715F6EE0058C8A3 /* Assets.xcassets in Resources */,
 			);
@@ -479,7 +467,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.viktor-we.ipsw-fetcher";
 				PRODUCT_NAME = "IPSW Fetcher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -510,7 +498,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.viktor-we.ipsw-fetcher";
 				PRODUCT_NAME = "IPSW Fetcher";
 				SWIFT_EMIT_LOC_STRINGS = YES;

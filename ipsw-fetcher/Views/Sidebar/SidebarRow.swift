@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SidebarRow: View {
+    
     var sidebar_option: SidebarOption
     
     var body: some View {

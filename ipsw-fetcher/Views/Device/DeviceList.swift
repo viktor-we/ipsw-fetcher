@@ -20,7 +20,7 @@ struct DevicesList: View {
     var filtered_devices: [Device] {
         data_object.devices.filter { device in
             (filter == .all || device.name.contains(filter.rawValue)) &&
-            (!show_favorites || device.isFavorite) &&
+            (!show_favorites || device.is_favorite) &&
             (text_field == "" || device.name.lowercased().contains(text_field.lowercased()))
         }
     }

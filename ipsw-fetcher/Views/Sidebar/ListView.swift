@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ListView: View {
+    
     var sidebar_option: SidebarOption
+    
     var body: some View {
         if(sidebar_option.id == 0) {
             DevicesList()

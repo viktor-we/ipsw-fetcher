@@ -8,6 +8,5 @@
 import Foundation
 
 struct DeviceJSON: Hashable, Codable {
-    var name: String
-    var identifier: String
+    var name, identifier: String
 }

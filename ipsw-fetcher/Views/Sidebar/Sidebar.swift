@@ -11,7 +11,7 @@ struct Sidebar: View {
     
     @State private var selected_sidebar_option: SidebarOption?
     
-    let sidebarOptions = [SidebarOption(id: 0, title: "Devices", icon_name: "iphone"),
+    let sidebar_options = [SidebarOption(id: 0, title: "Devices", icon_name: "iphone"),
                           SidebarOption(id: 1, title: "Firmwares", icon_name: "shippingbox"),
                           SidebarOption(id: 2, title: "Local Files", icon_name: "doc"),
                           SidebarOption(id: 3, title: "Downloads", icon_name: "arrow.down.app")]
@@ -19,7 +19,7 @@ struct Sidebar: View {
     var body: some View {
         NavigationView {
             List(selection: $selected_sidebar_option) {
-                ForEach(sidebarOptions) { sidebar_option in
+                ForEach(sidebar_options) { sidebar_option in
                     NavigationLink(destination: ListView(sidebar_option: sidebar_option)) {
                         SidebarRow(sidebar_option: sidebar_option)
                     }

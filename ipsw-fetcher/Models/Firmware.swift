@@ -13,11 +13,6 @@ struct Firmware: Hashable, Codable {
     var filesize: Int
     var signed: Bool
     
-    var device_name: String
-    
-    var os_name: String
-    
-    var filename: String
-    
+    var device_name, os_name, filename: String
     var is_downloaded: Bool
 }

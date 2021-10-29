@@ -34,9 +34,9 @@ struct DeviceRow: View {
             .padding()
             Spacer()
             Button(action: {
-                data_object.devices[device_index].isFavorite.toggle()
+                data_object.devices[device_index].is_favorite.toggle()
             }) {
-                Image(systemName: device.isFavorite ? "star.fill" : "star")
+                Image(systemName: device.is_favorite ? "star.fill" : "star")
             }
             .buttonStyle(PlainButtonStyle())
             .font(.title)

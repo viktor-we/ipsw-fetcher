@@ -8,9 +8,9 @@
 import Foundation
 
 struct Device: Hashable, Codable {
-    var identifier: String
-    var name: String
-    var isFavorite: Bool = false
+    var identifier, name: String
+    
+    var is_favorite: Bool = false
     
     var os_name: String {
         if self.name.contains("iPhone") {
