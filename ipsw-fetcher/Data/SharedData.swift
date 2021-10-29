@@ -1,5 +1,5 @@
 //
-//  ModelData.swift
+//  SharedData.swift
 //  ipsw-fetcher
 //
 //  Created by Viktor Weigandt on 12.10.21.
