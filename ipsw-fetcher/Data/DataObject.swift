@@ -231,10 +231,10 @@ final class DataObject: ObservableObject {
         DispatchQueue.main.async {
             self.local_files_iphone = [LocalFile]()
             do {
-                let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
-                for i in 0..<localFilesStrings.count {
-                    let fileName = localFilesStrings[i].absoluteString
-                    self.local_files_iphone.append(LocalFile(id: i, name: String(fileName.split(separator:"/").last!)))
+                let local_files = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
+                for i in 0..<local_files.count {
+                    let fileName = local_files[i].absoluteString
+                    self.local_files_iphone.append(LocalFile(file_name: String(fileName.split(separator:"/").last!)))
                 }
             } catch {
                 print("Local Files not found")
@@ -245,7 +245,7 @@ final class DataObject: ObservableObject {
                 let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_ipad_path,includingPropertiesForKeys: nil, options: []))
                 for i in 0..<localFilesStrings.count {
                     let fileName = localFilesStrings[i].absoluteString
-                    self.local_files_ipad.append(LocalFile(id: i, name: String(fileName.split(separator:"/").last!)))
+                    self.local_files_ipad.append(LocalFile(file_name: String(fileName.split(separator:"/").last!)))
                 }
             } catch {
                 print("Local Files not found")
@@ -260,13 +260,13 @@ final class DataObject: ObservableObject {
                 var is_downloaded = false
                 if self.firmwares[i].os_name == "iOS" {
                     for local_file_iphone in self.local_files_iphone {
-                        if (self.firmwares[i].filename == local_file_iphone.name) {
+                        if (self.firmwares[i].filename == local_file_iphone.file_name) {
                             is_downloaded = true
                         }
                     }
                 } else if self.firmwares[i].os_name == "iPadOS" {
                     for local_file_ipad in self.local_files_ipad {
-                        if (self.firmwares[i].filename == local_file_ipad.name) {
+                        if (self.firmwares[i].filename == local_file_ipad.file_name) {
                             is_downloaded = true
                         }
                     }
@@ -316,26 +316,26 @@ final class DataObject: ObservableObject {
     func download_firmware(firmware: Firmware) {
         var download_existing = false
         for download_task in download_tasks {
-            if download_task.filename == firmware.filename {
+            if download_task.firmware.filename == firmware.filename {
                 download_existing = true
             }
         }
         for local_file_ipad in local_files_ipad {
-            if local_file_ipad.name == firmware.filename {
+            if local_file_ipad.file_name == firmware.filename {
                 download_existing = true
             }
         }
         for local_file_iphone in local_files_iphone {
-            if local_file_iphone.name == firmware.filename {
+            if local_file_iphone.file_name == firmware.filename {
                 download_existing = true
             }
         }
         if !download_existing {
-            self.download_tasks.append(DownloadTask(filename: firmware.filename, filesize: firmware.filesize, url: firmware.url, os_name: firmware.os_name))
+            self.download_tasks.append(DownloadTask(firmware: firmware))
         }
     }
     
-    func delete_download(download_task: DownloadTask) {
+    func delete_download_task(download_task: DownloadTask) {
         var index = -1
         for i in 0..<download_tasks.count {
             if download_task.id == download_tasks[i].id {
@@ -359,7 +359,12 @@ final class DataObject: ObservableObject {
         }
     }
     
-    func delete_every_download() {
-        download_tasks = [DownloadTask]()
+    func delete_completed_downloads() {
+        for download_task in download_tasks {
+            if download_task.completed {
+                self.delete_download_task(download_task: download_task)
+            }
+        }
     }
 }
+

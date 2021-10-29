@@ -15,13 +15,13 @@ struct FilesList: View {
     
     var filtered_files_iphone : [LocalFile] {
         data_object.local_files_iphone.filter({ local_file in
-            (text_field == "" || local_file.name.lowercased().contains(text_field.lowercased()))
+            (text_field == "" || local_file.file_name.lowercased().contains(text_field.lowercased()))
         })
     }
     
     var filtered_files_ipad : [LocalFile] {
             data_object.local_files_ipad.filter({ local_file in
-                (text_field == "" || local_file.name.lowercased().contains(text_field.lowercased()))
+                (text_field == "" || local_file.file_name.lowercased().contains(text_field.lowercased()))
             })
         }
 

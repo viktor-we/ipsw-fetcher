@@ -8,6 +8,6 @@
 import Foundation
 
 struct LocalFile: Hashable, Codable, Identifiable {
-    var id: Int
-    var name: String
+    var id = UUID()
+    var file_name: String
 }

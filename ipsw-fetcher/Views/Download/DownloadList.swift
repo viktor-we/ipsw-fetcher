@@ -27,9 +27,9 @@ struct DownloadList: View {
                 Text("Cancel all Downloads")
             }
             Button (action: {
-                data_object.delete_every_download()
+                data_object.delete_completed_downloads()
             }) {
-                Text("Delete all Downloads")
+                Text("Delete completed Downloads")
             }
         }
     }

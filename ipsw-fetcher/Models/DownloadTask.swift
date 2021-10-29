@@ -7,63 +7,75 @@
 
 import Foundation
 
-final class DownloadTask: ObservableObject {
-    var id = UUID()
-    var filename: String
-    var filesize: Int
-    var url: URL
-    var os_name: String
+class DownloadTask: NSObject, ObservableObject {
     
-    var task: URLSessionDownloadTask?
-    var observer: NSKeyValueObservation?
+    var id = UUID()
+    var firmware: Firmware
+    
+    private lazy var urlSession = URLSession(configuration: .default, delegate: self,  delegateQueue: nil)
+    
+    private var download_task: URLSessionDownloadTask?
     
     @Published var downloading = false
+    @Published var completed = false
     @Published var progress = 0.0
     @Published var downloaded_size = 0
     
-    init(filename: String, filesize: Int, url: URL, os_name: String) {
-        self.filename = filename
-        self.filesize = filesize
-        self.url = url
-        self.os_name = os_name
+    var save_path: URL {
+        if firmware.os_name == "iOS" {
+            return local_files_iphone_path
+        } else {
+            return local_files_ipad_path
+        }
+    }
+    
+    init(firmware: Firmware) {
+        self.firmware = firmware
+        super.init()
         create_task()
     }
     
     func create_task() {
-        var save_path = local_files_itunes_path
-        if os_name == "iOS" {
-            save_path = local_files_iphone_path
-        } else if os_name == "iPadOS" {
-            save_path = local_files_ipad_path
-        }
-        task = URLSession.shared.downloadTask(with: self.url) { local_url, url_resonse, error in
-            if let local_url = local_url {
-                do {
-                    try fm.moveItem(at: local_url, to: save_path.appendingPathComponent(self.filename))
-                } catch {
-                    print("could not copy")
-                }
-            }
-        }
-        observer = task?.progress.observe(\.fractionCompleted) { download_progress, _ in
-            DispatchQueue.main.async {
-                self.progress = download_progress.fractionCompleted
-                self.downloaded_size = Int(Double(self.filesize) * self.progress)
-            }
-        }
+        let downloadTask = urlSession.downloadTask(with: firmware.url)
+        self.download_task = downloadTask
     }
     
     func resume_download() {
         self.downloading = true
-        self.task?.resume()
+        self.download_task?.resume()
     }
     
     func cancel_download() {
         self.downloading = false
-        self.observer = nil
-        self.task?.cancel()
-        self.task = nil
+        self.download_task?.cancel()
+        self.download_task = nil
         self.progress = 0.0
+        self.downloaded_size = 0
         self.create_task()
     }
+    
+}
+
+extension DownloadTask: URLSessionDownloadDelegate {
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let calculated_progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
+        DispatchQueue.main.async {
+            self.progress = calculated_progress
+            self.downloaded_size = Int(totalBytesWritten)
+        }
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        DispatchQueue.main.async {
+            self.completed = true
+            self.downloading = false
+        }
+        do {
+            try fm.moveItem(at: location, to: save_path.appendingPathComponent(self.firmware.filename))
+        } catch {
+            print("could not copy")
+        }
+    }
+    
 }

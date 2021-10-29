@@ -16,12 +16,12 @@ struct LocalFilesRow: View {
 
     var body: some View {
         HStack {
-            Text(local_file.name)
+            Text(local_file.file_name)
             Spacer()
             Button(action: {
                 switch device_type {
-                case "iOS": data_object.delete_local_file_iphone(local_file.name)
-                case "iPadOS": data_object.delete_local_file_ipad(local_file.name)
+                case "iOS": data_object.delete_local_file_iphone(local_file.file_name)
+                case "iPadOS": data_object.delete_local_file_ipad(local_file.file_name)
                 default: print("No device type")
                 }
             }) {
