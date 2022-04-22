@@ -1,0 +1,45 @@
+/* 
+  Localizable en.strings
+  ipsw-fetcher
+
+  Created by Viktor Weigandt on 22.04.22.
+  
+*/
+"notification_title" = "Download completed";
+
+"toolbar_search" = "Search ...";
+
+"sidebar_option_devices" = "Devices";
+"sidebar_option_firmwares" = "Firmwares";
+"sidebar_option_files" = "Files";
+"sidebar_option_downloads" = "Downloads";
+
+"devices_favorites_only" = "Only favorites";
+"devices_filter_category" = "Category";
+"devices_current_version" = "Current version";
+"devices_firmware_add" = "Add";
+"devices_firmware_delete" = "Delete";
+"devices_firmwares" = "Firmwares";
+
+"firmwares_signed_only" = "Only signed";
+"firmwares_filter_category" = "Category";
+"firmwares_add_all" = "Add all";
+"firmwares_delete_all" = "Delete all";
+"firmwares_add" = "Add";
+"firmwares_delete" = "Delete";
+"firmwares_used_by" = "Used by";
+
+"files_delete" = "Delete";
+"files_ios" = "iPhone Software Updates";
+"files_ipados" = "iPad Software Updates";
+
+"downloads_start_all" = "Start all";
+"downloads_pause_all" = "Pause all";
+"downloads_remove_all" = "Remove all";
+"downloads_remove_completed" = "Remove completed";
+"downloads_start" = "Start";
+"downloads_pause" = "Pause";
+"downloads_resume" = "Resume";
+"downloads_cancel" = "Cancel";
+"downloads_remove" = "Remove";
+"downloads_completed" = "Completed";
