@@ -25,14 +25,12 @@ struct LocalFilesRow: View {
                 default: print("No device type")
                 }
             }) {
-                Text("Delete File")
+                Image(systemName: "trash.fill")
+                    .foregroundColor(Color.red)
+                Text("files_delete")
+                    .foregroundColor(Color.red)
+                    .padding()
             }
         }
-    }
-}
-
-struct FilesRow_Previews: PreviewProvider {
-    static var previews: some View {
-        LocalFilesRow(local_file: DataObject().local_files_iphone[0], device_type: "iOS")
     }
 }

@@ -22,6 +22,9 @@ let local_files_iphone_path = local_files_itunes_path.appendingPathComponent("iP
 let local_files_ipad_path = local_files_itunes_path.appendingPathComponent("iPad Software Updates/")
 
 let url_devices = URL(string: "https://api.ipsw.me/v4/devices")!
+
+let color_grey = Color(.init(gray: 0.2, alpha: 0.1))
+
 let url_firmware_for_device = URL(string: "https://api.ipsw.me/v4/device/")!
 
 enum FilterCategory: String, CaseIterable, Identifiable {
@@ -67,3 +70,8 @@ func version_number_greater_than(_ lhs: String, _ rhs: String) -> Bool {
     }
     return false
 }
+
+let sidebar_devices = "Devices"
+let sidebar_firmwares = "Firmwares"
+let sidebar_local_files = "Local Files"
+let sidebar_downloads = "Downloads"

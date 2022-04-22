@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UserNotifications
 
 final class DataObject: ObservableObject {
     
@@ -46,10 +47,19 @@ final class DataObject: ObservableObject {
         } else {
             self.fetch_firmwares_from_api()
         }
-        
+
         self.find_firmware_versions()
         self.fetch_local_files()
         self.find_downloaded_firmwares()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("All set!")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
     // DEVICES
@@ -126,23 +136,21 @@ final class DataObject: ObservableObject {
         self.save_firmwares_model()
     }
     
-    func get_firmwares_for_device(identifier: String) -> [Firmware] {
-        var return_value = [Firmware]()
+    func get_firmwares_for_device(identifier: String) -> [FirmwareIndex] {
+        var return_value = [FirmwareIndex]()
         for firmware in firmwares {
             if firmware.identifier == identifier {
-                return_value.append(firmware)
+                return_value.append(FirmwareIndex(identifier: firmware.identifier, version: firmware.version, buildid: firmware.buildid, sha1sum: firmware.sha1sum, md5sum: firmware.md5sum, sha256sum: firmware.sha256sum, url: firmware.url, filesize: firmware.filesize, signed: firmware.signed, device_name: firmware.device_name, os_name: firmware.os_name, filename: firmware.filename, is_downloaded: firmware.is_downloaded, index: return_value.count))
             }
         }
         return return_value
     }
     
-    func get_firmwares_for_version(version: String, os_name:String) -> [Firmware] {
-        var return_value = [Firmware]()
+    func get_firmwares_for_version(version: String, os_name:String) -> [FirmwareIndex] {
+        var return_value = [FirmwareIndex]()
         for firmware in self.firmwares {
-            if firmware.signed {
-                if (firmware.version == version && firmware.os_name == os_name) {
-                    return_value.append(firmware)
-                }
+            if (firmware.version == version && firmware.os_name == os_name) {
+                return_value.append(FirmwareIndex(identifier: firmware.identifier, version: firmware.version, buildid: firmware.buildid, sha1sum: firmware.sha1sum, md5sum: firmware.md5sum, sha256sum: firmware.sha256sum, url: firmware.url, filesize: firmware.filesize, signed: firmware.signed, device_name: firmware.device_name, os_name: firmware.os_name, filename: firmware.filename, is_downloaded: firmware.is_downloaded, index: return_value.count))
             }
         }
         return return_value
@@ -151,7 +159,7 @@ final class DataObject: ObservableObject {
     func get_latest_firmware_for_device(identifier: String) -> String {
         for firmware in firmwares {
             if firmware.identifier == identifier {
-                return "\(firmware.os_name) \(firmware.version)"
+                return "\(firmware.version)"
             }
         }
         return "None"
@@ -161,11 +169,9 @@ final class DataObject: ObservableObject {
     
     func find_firmware_versions() {
         for firmware in self.firmwares {
-            if (firmware.signed) {
-                if !self.find_existing_firmware_version(os_name: firmware.os_name, version: firmware.version) {
-                    self.firmware_versions.append(FirmwareVersion(version: firmware.version, buildid: firmware.buildid, os_name: firmware.os_name))
-                    
-                }
+            if !self.find_existing_firmware_version(os_name: firmware.os_name, version: firmware.version) {
+                self.firmware_versions.append(FirmwareVersion(version: firmware.version, buildid: firmware.buildid, os_name: firmware.os_name, signed: firmware.signed))
+                
             }
         }
     }
@@ -234,7 +240,7 @@ final class DataObject: ObservableObject {
                 let local_files = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
                 for i in 0..<local_files.count {
                     let fileName = local_files[i].absoluteString
-                    self.local_files_iphone.append(LocalFile(file_name: String(fileName.split(separator:"/").last!)))
+                    self.local_files_iphone.append(LocalFile(file_name: String(fileName.split(separator:"/").last!),index: i))
                 }
             } catch {
                 print("Local Files not found")
@@ -245,7 +251,7 @@ final class DataObject: ObservableObject {
                 let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_ipad_path,includingPropertiesForKeys: nil, options: []))
                 for i in 0..<localFilesStrings.count {
                     let fileName = localFilesStrings[i].absoluteString
-                    self.local_files_ipad.append(LocalFile(file_name: String(fileName.split(separator:"/").last!)))
+                    self.local_files_ipad.append(LocalFile(file_name: String(fileName.split(separator:"/").last!),index: i))
                 }
             } catch {
                 print("Local Files not found")
@@ -313,7 +319,7 @@ final class DataObject: ObservableObject {
     
     // Downloads
     
-    func download_firmware(firmware: Firmware) {
+    func create_download_task(firmware: FirmwareIndex) {
         var download_existing = false
         for download_task in download_tasks {
             if download_task.firmware.filename == firmware.filename {
@@ -331,7 +337,7 @@ final class DataObject: ObservableObject {
             }
         }
         if !download_existing {
-            self.download_tasks.append(DownloadTask(firmware: firmware))
+            self.download_tasks.append(DownloadTask(firmware: firmware, data_object: self, index:download_tasks.count))
         }
     }
     
@@ -347,15 +353,27 @@ final class DataObject: ObservableObject {
         }
     }
     
-    func start_every_download() {
+    
+    func start_next_download() {
+        var started = false
         for download_task in download_tasks {
-            download_task.resume_download()
+            if !download_task.completed && !started {
+                download_task.bulk_download = true
+                download_task.start_download()
+                started = true
+            }
         }
     }
     
     func cancel_every_download() {
         for download_task in download_tasks {
             download_task.cancel_download()
+        }
+    }
+    
+    func pause_every_download() {
+        for download_task in download_tasks {
+            download_task.pause_download()
         }
     }
     
@@ -366,5 +384,27 @@ final class DataObject: ObservableObject {
             }
         }
     }
-}
+    
+    func delete_every_download() {
+        cancel_every_download()
+        self.download_tasks.removeAll()
+    }
 
+    func alert_finished_download(filename: String) {
+        var completed = 0
+        for download_task in download_tasks {
+            if download_task.completed {
+                completed += 1
+            }
+        }
+        let content = UNMutableNotificationContent()
+        content.title = NSLocalizedString("notification_title",comment: "")
+        content.subtitle = filename
+        content.sound = UNNotificationSound.default
+        content.badge = NSNumber(value: completed)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+    
+}

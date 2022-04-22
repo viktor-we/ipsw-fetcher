@@ -15,16 +15,10 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
-            TextField("Search ...", text: $text)
+            TextField("toolbar_search", text: $text)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(minWidth: 250)
         }
         .padding(.horizontal,10)
-    }
-}
-
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBar(text: .constant(""))
     }
 }

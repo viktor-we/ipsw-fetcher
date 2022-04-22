@@ -6,11 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 class DownloadTask: NSObject, ObservableObject {
     
     var id = UUID()
-    var firmware: Firmware
+    var firmware: FirmwareIndex
+    var resume_data: Data?
+    var data_object: DataObject
+    var bulk_download: Bool = false
+    var index: Int
     
     private lazy var urlSession = URLSession(configuration: .default, delegate: self,  delegateQueue: nil)
     
@@ -29,29 +34,54 @@ class DownloadTask: NSObject, ObservableObject {
         }
     }
     
-    init(firmware: Firmware) {
+    init(firmware: FirmwareIndex, data_object: DataObject, index: Int) {
         self.firmware = firmware
+        self.data_object = data_object
+        self.index = index
         super.init()
-        create_task()
     }
     
-    func create_task() {
-        let downloadTask = urlSession.downloadTask(with: firmware.url)
-        self.download_task = downloadTask
+    func start_download() {
+        if self.downloaded_size > 0 {
+            self.resume_download()
+        } else {
+            let downloadTask = urlSession.downloadTask(with: firmware.url)
+            self.download_task = downloadTask
+            self.downloading = true
+            self.download_task?.resume()
+        }
+    }
+    
+    func pause_download() {
+        self.download_task?.cancel{ resume_data_or_nil in
+            guard let resume_data = resume_data_or_nil else {
+                print("Could not be resumed")
+                return
+            }
+            self.resume_data = resume_data
+        }
+        self.downloading = false
     }
     
     func resume_download() {
-        self.downloading = true
+        guard let resume_data = self.resume_data else {
+            print("Could not be resumed")
+            return
+        }
+        let downloadTask = urlSession.downloadTask(withResumeData: resume_data)
+        self.download_task = downloadTask
         self.download_task?.resume()
+        self.downloading = true
     }
     
     func cancel_download() {
-        self.downloading = false
+        DispatchQueue.main.async {
+            self.progress = 0.0
+            self.downloaded_size = 0
+            self.downloading = false
+        }
         self.download_task?.cancel()
         self.download_task = nil
-        self.progress = 0.0
-        self.downloaded_size = 0
-        self.create_task()
     }
     
 }
@@ -70,6 +100,11 @@ extension DownloadTask: URLSessionDownloadDelegate {
         DispatchQueue.main.async {
             self.completed = true
             self.downloading = false
+            self.data_object.fetch_local_files()
+            self.data_object.alert_finished_download(filename: self.firmware.filename)
+            if (self.bulk_download) {
+                self.data_object.start_next_download()
+            }
         }
         do {
             try fm.moveItem(at: location, to: save_path.appendingPathComponent(self.firmware.filename))

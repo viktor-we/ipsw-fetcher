@@ -1,8 +1,8 @@
 //
-//  iphone_model.swift
+//  DeviceRow.swift
 //  ipsw-fetcher
 //
-//  Created by Viktor Weigandt on 12.10.21.
+//  Created by Viktor Weigandt on 22.04.22.
 //
 
 import SwiftUI
@@ -11,42 +11,40 @@ struct DeviceRow: View {
     
     @EnvironmentObject var data_object: DataObject
     
-    var device_index: Int {
-        data_object.devices.firstIndex(where: { $0.identifier == device.identifier })!
-    }
+    var firmware: FirmwareIndex
     
-    var device: Device
-
     var body: some View {
         HStack {
-            Image(device.identifier)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(device.name)
-                        .font(.system(size: 18))
-                    Text(device.identifier)
-                    
-                }
+            VStack(alignment: .leading) {
+                Text("\(firmware.os_name) \(firmware.version)")
+                    .font(.system(size: 18))
+                    .padding(.bottom,0.5)
+                    .foregroundColor(firmware.signed ? Color.green : Color.red)
+                Text(firmware.filename)
             }
-            .padding()
             Spacer()
-            Button(action: {
-                data_object.devices[device_index].is_favorite.toggle()
-            }) {
-                Image(systemName: device.is_favorite ? "star.fill" : "star")
+            VStack(alignment: .trailing) {
+                let filesize = Float(firmware.filesize) / 1024 / 1024 / 1024
+                Text(String(format:"%.3f GB", filesize))
             }
-            .buttonStyle(PlainButtonStyle())
-            .font(.title)
+            Image(systemName: firmware.is_downloaded ? "checkmark.rectangle.fill" : "xmark.rectangle")
+            Button(action: {
+                data_object.create_download_task(firmware: firmware)
+            }) {
+                Image(systemName: "plus")
+                    .padding()
+            }
+            Button(action: {
+                switch firmware.os_name {
+                case "iOS": data_object.delete_local_file_iphone(firmware.filename)
+                case "iPadOS": data_object.delete_local_file_ipad(firmware.filename)
+                default: print("No device type")
+                }
+            }) {
+                Image(systemName: "trash.fill")
+                    .foregroundColor(Color.red)
+            }
         }
-        .padding()
-    }
-}
-
-struct DeviceRow_Previews: PreviewProvider {
-    static var previews: some View {
-        DeviceRow(device: DataObject().devices.last!)
+        .padding(5)
     }
 }

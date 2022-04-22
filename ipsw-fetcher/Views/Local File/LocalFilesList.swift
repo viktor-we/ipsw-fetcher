@@ -27,14 +27,18 @@ struct FilesList: View {
 
     var body: some View {
         List {
-            Section(header:Text("iPhone Software Updates")) {
+            Section(header:Text("files_ios")) {
                 ForEach(filtered_files_iphone, id:\.id) { localFile in
                     LocalFilesRow(local_file: localFile, device_type: "iOS")
+                        .listRowBackground((localFile.index  % 2 == 0) ? Color(.clear) : color_grey)
+                        .padding(5)
+                        .padding(.leading,10)
+                        .padding(.trailing,10)
                 }
             }
         }
         List {
-            Section(header:Text("iPad Software Updates")) {
+            Section(header:Text("files_ipados")) {
                 ForEach(filtered_files_ipad, id:\.id) { localFile in
                     LocalFilesRow(local_file: localFile, device_type: "iPadOS")
                 }
@@ -45,14 +49,8 @@ struct FilesList: View {
             Button(action: {
                 data_object.fetch_local_files()
             }) {
-                Text("Update Local Files")
+                Image(systemName: "arrow.clockwise")
             }
         }
-    }
-}
-
-struct FilesList_Previews: PreviewProvider {
-    static var previews: some View {
-        FilesList()
     }
 }

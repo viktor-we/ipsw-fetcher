@@ -19,14 +19,6 @@ struct Device: Hashable, Codable {
             return "iOS"
         } else if self.name.contains("iPad") {
             return "iPadOS"
-        } else if self.name.contains("Mac") {
-            return "macOS"
-        } else if self.name.contains("Apple TV") {
-            return "tvOS"
-        } else if self.name.contains("HomePod") {
-            return "audioOS"
-        } else if self.name.contains("Apple Watch") {
-            return "watchOS"
         }
         return "OS"
     }

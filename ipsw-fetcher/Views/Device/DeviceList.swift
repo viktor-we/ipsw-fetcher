@@ -1,66 +1,53 @@
 //
-//  ModelsList.swift
+//  DeviceDetail.swift
 //  ipsw-fetcher
 //
-//  Created by Viktor Weigandt on 12.10.21.
+//  Created by Viktor Weigandt on 16.10.21.
 //
 
 import SwiftUI
 
-struct DevicesList: View {
-
+struct DeviceList: View {
+    
     @EnvironmentObject var data_object: DataObject
     
-    @State private var show_favorites = false
-    @State private var filter = FilterCategory.all
-    @State private var selected_device: Device?
-
-    @State private var text_field = ""
-    
-    var filtered_devices: [Device] {
-        data_object.devices.filter { device in
-            (filter == .all || device.name.contains(filter.rawValue)) &&
-            (!show_favorites || device.is_favorite) &&
-            (text_field == "" || device.name.lowercased().contains(text_field.lowercased()))
-        }
-    }
+    var device: Device
     
     var body: some View {
-        NavigationView {
-            List(selection: $selected_device) {
-                ForEach (filtered_devices, id:\.identifier) { device in
-                    NavigationLink(destination: DeviceDetail(device: device)) {
-                        DeviceRow(device: device)
-                    }
+        VStack(alignment: .leading) {
+            HStack {
+                Image(device.identifier)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                VStack(alignment: .leading) {
+                    Text(device.name)
+                        .font(.title)
+                    Text(device.identifier)
+                }
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("devices_current_version")
+                    Text("\(device.os_name) \(data_object.get_latest_firmware_for_device(identifier: device.identifier))")
+                        .font(.title2)
+                }
+                .padding()
+            }
+            .padding(.vertical,30)
+            .padding()
+            Text("devices_firmwares")
+                .font(.title)
+                .padding(.leading)
+            List {
+                ForEach(data_object.get_firmwares_for_device(identifier: device.identifier), id: \.buildid) { firmware in
+                    DeviceRow(firmware:firmware)
+                        .listRowBackground((firmware.index  % 2 == 0) ? Color(.clear) : color_grey)
+                        //.padding(5)
+                        .padding(.leading,10)
+                        .padding(.trailing,10)
                 }
             }
-            .frame(minWidth:400)
-            .toolbar {
-                SearchBar(text: $text_field)
-                Picker("Category", selection: $filter) {
-                    ForEach(FilterCategory.allCases) { category in
-                        Text(category.rawValue).tag(category)
-                    }
-                }
-                .pickerStyle(.segmented)
-                Toggle(isOn: $show_favorites) {
-                    Label("Favorites only", systemImage: "star.fill")
-                }
-                Button(action: {
-                    data_object.fetch_devices_from_api()
-                    data_object.fetch_firmwares_from_api()
-                    data_object.find_firmware_versions()
-                }) {
-                    Text("Update Devices")
-                }
         }
-        }
-    }
-}
-
-struct MDevicesList_Previews: PreviewProvider {
-    static var previews: some View {
-        DevicesList()
-            .environmentObject(DataObject())
+        .frame(minWidth:600)
     }
 }

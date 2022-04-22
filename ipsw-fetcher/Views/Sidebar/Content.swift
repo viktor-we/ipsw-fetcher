@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListView: View {
+struct Content: View {
     
     var sidebar_option: SidebarOption
     
@@ -19,13 +19,7 @@ struct ListView: View {
         } else if (sidebar_option.id == 2){
             FilesList()
         } else if (sidebar_option.id == 3){
-            DownloadList()
+            DownloadsList()
         }
-    }
-}
-
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListView(sidebar_option: SidebarOption(id: 0, title: "Devices", icon_name: "iphone"))
     }
 }

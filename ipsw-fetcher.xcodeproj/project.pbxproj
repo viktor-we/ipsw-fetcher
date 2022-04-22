@@ -10,32 +10,34 @@
 		8A0A336B2715F6EA0058C8A3 /* ipsw_fetcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A336A2715F6EA0058C8A3 /* ipsw_fetcherApp.swift */; };
 		8A0A336F2715F6EE0058C8A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A336E2715F6EE0058C8A3 /* Assets.xcassets */; };
 		8A0A33722715F6EE0058C8A3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A0A33712715F6EE0058C8A3 /* Preview Assets.xcassets */; };
-		8A0A337C2715F9600058C8A3 /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A337B2715F9600058C8A3 /* DeviceRow.swift */; };
+		8A0A337C2715F9600058C8A3 /* DevicesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A337B2715F9600058C8A3 /* DevicesRow.swift */; };
 		8A0A3380271600690058C8A3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A337F271600690058C8A3 /* Device.swift */; };
 		8A0A3382271601050058C8A3 /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3381271601050058C8A3 /* SharedData.swift */; };
-		8A0A33892716038C0058C8A3 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A33882716038C0058C8A3 /* DeviceList.swift */; };
+		8A0A33892716038C0058C8A3 /* DevicesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A33882716038C0058C8A3 /* DevicesList.swift */; };
 		8A0A338B27160DF40058C8A3 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A338A27160DF40058C8A3 /* Sidebar.swift */; };
 		8A0A338F271611030058C8A3 /* Firmware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A338E271611030058C8A3 /* Firmware.swift */; };
 		8A0A3393271611D20058C8A3 /* FirmwaresList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3392271611D20058C8A3 /* FirmwaresList.swift */; };
-		8A0A3395271612040058C8A3 /* FirmwareRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3394271612040058C8A3 /* FirmwareRow.swift */; };
+		8A0A3395271612040058C8A3 /* FirmwaresRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A3394271612040058C8A3 /* FirmwaresRow.swift */; };
 		8A0A6CD7272AC9EE004E7CD5 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A6CD6272AC9EE004E7CD5 /* SearchBar.swift */; };
 		8A289926271F042200BA40AF /* FirmwaresForDeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A289925271F042200BA40AF /* FirmwaresForDeviceJSON.swift */; };
 		8A28992B2720159E00BA40AF /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992A2720159E00BA40AF /* DownloadTask.swift */; };
-		8A28992D272017DC00BA40AF /* DownloadList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992C272017DC00BA40AF /* DownloadList.swift */; };
+		8A28992D272017DC00BA40AF /* DownloadsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992C272017DC00BA40AF /* DownloadsList.swift */; };
 		8A28992F2720347F00BA40AF /* DownloadRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A28992E2720347F00BA40AF /* DownloadRow.swift */; };
 		8A4A9ACB2719BD0700B2EF3C /* DataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A9ACA2719BD0700B2EF3C /* DataObject.swift */; };
 		8A4A9AD12719E59F00B2EF3C /* DeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A9AD02719E59F00B2EF3C /* DeviceJSON.swift */; };
 		8A4A9AD3271AA9A100B2EF3C /* FirmwareJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A9AD2271AA9A100B2EF3C /* FirmwareJSON.swift */; };
 		8A7CFD23271889C70065CB12 /* LocalFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7CFD22271889C70065CB12 /* LocalFile.swift */; };
-		8AA72E27271C1FE700350F6A /* FirmwareDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA72E26271C1FE700350F6A /* FirmwareDetail.swift */; };
+		8AA72E27271C1FE700350F6A /* FirmwareList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA72E26271C1FE700350F6A /* FirmwareList.swift */; };
 		8AA72E2B271C26EE00350F6A /* FirmwareVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA72E2A271C26EE00350F6A /* FirmwareVersion.swift */; };
-		8AA72E2D271C414200350F6A /* FirmwareDeviceJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA72E2C271C414200350F6A /* FirmwareDeviceJSON.swift */; };
-		8AB6AF88271B58B30081020E /* DeviceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6AF87271B58B30081020E /* DeviceDetail.swift */; };
-		8ABDF2E727175ABE00142C32 /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2E627175ABE00142C32 /* SidebarRow.swift */; };
+		8AB6AF88271B58B30081020E /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB6AF87271B58B30081020E /* DeviceList.swift */; };
 		8ABDF2E927175CB600142C32 /* SidebarOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2E827175CB600142C32 /* SidebarOption.swift */; };
-		8ABDF2EB271762C300142C32 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2EA271762C300142C32 /* ListView.swift */; };
+		8ABDF2EB271762C300142C32 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2EA271762C300142C32 /* Content.swift */; };
 		8ABDF2EF271771F600142C32 /* LocalFilesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2EE271771F600142C32 /* LocalFilesRow.swift */; };
 		8ABDF2F1271772AB00142C32 /* LocalFilesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABDF2F0271772AB00142C32 /* LocalFilesList.swift */; };
+		8AEEEA752812CC3E00BB0700 /* FirmwareIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEEEA742812CC3E00BB0700 /* FirmwareIndex.swift */; };
+		8AEEEA792812CEDF00BB0700 /* FirmwareRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEEEA782812CEDF00BB0700 /* FirmwareRow.swift */; };
+		8AEEEA7B2812D26D00BB0700 /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEEEA7A2812D26D00BB0700 /* DeviceRow.swift */; };
+		8AEEEA8C2812F58200BB0700 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEEEA8E2812F58200BB0700 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,33 +46,36 @@
 		8A0A336E2715F6EE0058C8A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A0A33712715F6EE0058C8A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8A0A33732715F6EE0058C8A3 /* ipsw_fetcher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ipsw_fetcher.entitlements; sourceTree = "<group>"; };
-		8A0A337B2715F9600058C8A3 /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		8A0A337B2715F9600058C8A3 /* DevicesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesRow.swift; sourceTree = "<group>"; };
 		8A0A337F271600690058C8A3 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8A0A3381271601050058C8A3 /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
-		8A0A33882716038C0058C8A3 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
+		8A0A33882716038C0058C8A3 /* DevicesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesList.swift; sourceTree = "<group>"; };
 		8A0A338A27160DF40058C8A3 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		8A0A338E271611030058C8A3 /* Firmware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firmware.swift; sourceTree = "<group>"; };
 		8A0A3392271611D20058C8A3 /* FirmwaresList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwaresList.swift; sourceTree = "<group>"; };
-		8A0A3394271612040058C8A3 /* FirmwareRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareRow.swift; sourceTree = "<group>"; };
+		8A0A3394271612040058C8A3 /* FirmwaresRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwaresRow.swift; sourceTree = "<group>"; };
 		8A0A6CD6272AC9EE004E7CD5 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		8A289925271F042200BA40AF /* FirmwaresForDeviceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwaresForDeviceJSON.swift; sourceTree = "<group>"; };
 		8A2899292720120600BA40AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A28992A2720159E00BA40AF /* DownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
-		8A28992C272017DC00BA40AF /* DownloadList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadList.swift; sourceTree = "<group>"; };
+		8A28992C272017DC00BA40AF /* DownloadsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsList.swift; sourceTree = "<group>"; };
 		8A28992E2720347F00BA40AF /* DownloadRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRow.swift; sourceTree = "<group>"; };
 		8A4A9ACA2719BD0700B2EF3C /* DataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObject.swift; sourceTree = "<group>"; };
 		8A4A9AD02719E59F00B2EF3C /* DeviceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceJSON.swift; sourceTree = "<group>"; };
 		8A4A9AD2271AA9A100B2EF3C /* FirmwareJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareJSON.swift; sourceTree = "<group>"; };
 		8A7CFD22271889C70065CB12 /* LocalFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFile.swift; sourceTree = "<group>"; };
-		8AA72E26271C1FE700350F6A /* FirmwareDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareDetail.swift; sourceTree = "<group>"; };
+		8AA72E26271C1FE700350F6A /* FirmwareList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareList.swift; sourceTree = "<group>"; };
 		8AA72E2A271C26EE00350F6A /* FirmwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareVersion.swift; sourceTree = "<group>"; };
-		8AA72E2C271C414200350F6A /* FirmwareDeviceJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareDeviceJSON.swift; sourceTree = "<group>"; };
-		8AB6AF87271B58B30081020E /* DeviceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetail.swift; sourceTree = "<group>"; };
-		8ABDF2E627175ABE00142C32 /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
+		8AB6AF87271B58B30081020E /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		8ABDF2E827175CB600142C32 /* SidebarOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarOption.swift; sourceTree = "<group>"; };
-		8ABDF2EA271762C300142C32 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		8ABDF2EA271762C300142C32 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		8ABDF2EE271771F600142C32 /* LocalFilesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFilesRow.swift; sourceTree = "<group>"; };
 		8ABDF2F0271772AB00142C32 /* LocalFilesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFilesList.swift; sourceTree = "<group>"; };
+		8AEEEA742812CC3E00BB0700 /* FirmwareIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareIndex.swift; sourceTree = "<group>"; };
+		8AEEEA782812CEDF00BB0700 /* FirmwareRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareRow.swift; sourceTree = "<group>"; };
+		8AEEEA7A2812D26D00BB0700 /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		8AEEEA8D2812F58200BB0700 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AEEEA942813071800BB0700 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +92,7 @@
 		8A0A335E2715F6E90058C8A3 = {
 			isa = PBXGroup;
 			children = (
+				8AEEEA8E2812F58200BB0700 /* Localizable.strings */,
 				8A0A33692715F6EA0058C8A3 /* ipsw-fetcher */,
 				8A0A33682715F6EA0058C8A3 /* Products */,
 			);
@@ -126,12 +132,12 @@
 		8A0A3383271601710058C8A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8AEEEA7C2812D4C200BB0700 /* Helper */,
 				8AA72E31271D7F9900350F6A /* Sidebar */,
 				8AA72E32271D7FA400350F6A /* Device */,
 				8AA72E33271D7FAD00350F6A /* Firmware */,
 				8AA72E34271D7FB500350F6A /* Local File */,
 				8A2899302720365200BA40AF /* Download */,
-				8A0A6CD6272AC9EE004E7CD5 /* SearchBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -141,10 +147,10 @@
 			children = (
 				8A0A337F271600690058C8A3 /* Device.swift */,
 				8A0A338E271611030058C8A3 /* Firmware.swift */,
+				8AEEEA742812CC3E00BB0700 /* FirmwareIndex.swift */,
 				8AA72E2A271C26EE00350F6A /* FirmwareVersion.swift */,
 				8ABDF2E827175CB600142C32 /* SidebarOption.swift */,
 				8A7CFD22271889C70065CB12 /* LocalFile.swift */,
-				8A28992A2720159E00BA40AF /* DownloadTask.swift */,
 				8AA72E30271D7F8500350F6A /* JSONModels */,
 			);
 			path = Models;
@@ -161,7 +167,7 @@
 		8A2899302720365200BA40AF /* Download */ = {
 			isa = PBXGroup;
 			children = (
-				8A28992C272017DC00BA40AF /* DownloadList.swift */,
+				8A28992C272017DC00BA40AF /* DownloadsList.swift */,
 				8A28992E2720347F00BA40AF /* DownloadRow.swift */,
 			);
 			path = Download;
@@ -172,6 +178,7 @@
 			children = (
 				8A0A3381271601050058C8A3 /* SharedData.swift */,
 				8A4A9ACA2719BD0700B2EF3C /* DataObject.swift */,
+				8A28992A2720159E00BA40AF /* DownloadTask.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -181,7 +188,6 @@
 			children = (
 				8A4A9AD02719E59F00B2EF3C /* DeviceJSON.swift */,
 				8A4A9AD2271AA9A100B2EF3C /* FirmwareJSON.swift */,
-				8AA72E2C271C414200350F6A /* FirmwareDeviceJSON.swift */,
 				8A289925271F042200BA40AF /* FirmwaresForDeviceJSON.swift */,
 			);
 			path = JSONModels;
@@ -191,8 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				8A0A338A27160DF40058C8A3 /* Sidebar.swift */,
-				8ABDF2E627175ABE00142C32 /* SidebarRow.swift */,
-				8ABDF2EA271762C300142C32 /* ListView.swift */,
+				8ABDF2EA271762C300142C32 /* Content.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -200,9 +205,10 @@
 		8AA72E32271D7FA400350F6A /* Device */ = {
 			isa = PBXGroup;
 			children = (
-				8A0A33882716038C0058C8A3 /* DeviceList.swift */,
-				8A0A337B2715F9600058C8A3 /* DeviceRow.swift */,
-				8AB6AF87271B58B30081020E /* DeviceDetail.swift */,
+				8A0A33882716038C0058C8A3 /* DevicesList.swift */,
+				8A0A337B2715F9600058C8A3 /* DevicesRow.swift */,
+				8AB6AF87271B58B30081020E /* DeviceList.swift */,
+				8AEEEA7A2812D26D00BB0700 /* DeviceRow.swift */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -211,8 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				8A0A3392271611D20058C8A3 /* FirmwaresList.swift */,
-				8A0A3394271612040058C8A3 /* FirmwareRow.swift */,
-				8AA72E26271C1FE700350F6A /* FirmwareDetail.swift */,
+				8A0A3394271612040058C8A3 /* FirmwaresRow.swift */,
+				8AA72E26271C1FE700350F6A /* FirmwareList.swift */,
+				8AEEEA782812CEDF00BB0700 /* FirmwareRow.swift */,
 			);
 			path = Firmware;
 			sourceTree = "<group>";
@@ -224,6 +231,14 @@
 				8ABDF2EE271771F600142C32 /* LocalFilesRow.swift */,
 			);
 			path = "Local File";
+			sourceTree = "<group>";
+		};
+		8AEEEA7C2812D4C200BB0700 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8A0A6CD6272AC9EE004E7CD5 /* SearchBar.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +283,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 8A0A335E2715F6E90058C8A3;
 			productRefGroup = 8A0A33682715F6EA0058C8A3 /* Products */;
@@ -286,6 +302,7 @@
 			files = (
 				8A0A33722715F6EE0058C8A3 /* Preview Assets.xcassets in Resources */,
 				8A0A336F2715F6EE0058C8A3 /* Assets.xcassets in Resources */,
+				8AEEEA8C2812F58200BB0700 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,40 +316,54 @@
 				8A4A9AD3271AA9A100B2EF3C /* FirmwareJSON.swift in Sources */,
 				8ABDF2EF271771F600142C32 /* LocalFilesRow.swift in Sources */,
 				8A0A338F271611030058C8A3 /* Firmware.swift in Sources */,
-				8ABDF2EB271762C300142C32 /* ListView.swift in Sources */,
-				8AB6AF88271B58B30081020E /* DeviceDetail.swift in Sources */,
+				8ABDF2EB271762C300142C32 /* Content.swift in Sources */,
+				8AB6AF88271B58B30081020E /* DeviceList.swift in Sources */,
 				8A0A3380271600690058C8A3 /* Device.swift in Sources */,
 				8AA72E2B271C26EE00350F6A /* FirmwareVersion.swift in Sources */,
-				8AA72E2D271C414200350F6A /* FirmwareDeviceJSON.swift in Sources */,
 				8A28992F2720347F00BA40AF /* DownloadRow.swift in Sources */,
-				8A0A33892716038C0058C8A3 /* DeviceList.swift in Sources */,
+				8A0A33892716038C0058C8A3 /* DevicesList.swift in Sources */,
 				8A28992B2720159E00BA40AF /* DownloadTask.swift in Sources */,
 				8A4A9ACB2719BD0700B2EF3C /* DataObject.swift in Sources */,
-				8A28992D272017DC00BA40AF /* DownloadList.swift in Sources */,
+				8A28992D272017DC00BA40AF /* DownloadsList.swift in Sources */,
 				8A0A338B27160DF40058C8A3 /* Sidebar.swift in Sources */,
 				8A0A6CD7272AC9EE004E7CD5 /* SearchBar.swift in Sources */,
 				8A0A3393271611D20058C8A3 /* FirmwaresList.swift in Sources */,
 				8A4A9AD12719E59F00B2EF3C /* DeviceJSON.swift in Sources */,
 				8ABDF2F1271772AB00142C32 /* LocalFilesList.swift in Sources */,
-				8A0A337C2715F9600058C8A3 /* DeviceRow.swift in Sources */,
+				8A0A337C2715F9600058C8A3 /* DevicesRow.swift in Sources */,
 				8A289926271F042200BA40AF /* FirmwaresForDeviceJSON.swift in Sources */,
 				8A0A336B2715F6EA0058C8A3 /* ipsw_fetcherApp.swift in Sources */,
 				8A7CFD23271889C70065CB12 /* LocalFile.swift in Sources */,
-				8ABDF2E727175ABE00142C32 /* SidebarRow.swift in Sources */,
+				8AEEEA752812CC3E00BB0700 /* FirmwareIndex.swift in Sources */,
+				8AEEEA7B2812D26D00BB0700 /* DeviceRow.swift in Sources */,
 				8A0A3382271601050058C8A3 /* SharedData.swift in Sources */,
 				8ABDF2E927175CB600142C32 /* SidebarOption.swift in Sources */,
-				8A0A3395271612040058C8A3 /* FirmwareRow.swift in Sources */,
-				8AA72E27271C1FE700350F6A /* FirmwareDetail.swift in Sources */,
+				8AEEEA792812CEDF00BB0700 /* FirmwareRow.swift in Sources */,
+				8A0A3395271612040058C8A3 /* FirmwaresRow.swift in Sources */,
+				8AA72E27271C1FE700350F6A /* FirmwareList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8AEEEA8E2812F58200BB0700 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AEEEA8D2812F58200BB0700 /* en */,
+				8AEEEA942813071800BB0700 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8A0A33742715F6EE0058C8A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -394,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -467,7 +499,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.viktor-we.ipsw-fetcher";
 				PRODUCT_NAME = "IPSW Fetcher";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -498,7 +530,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.viktor-we.ipsw-fetcher";
 				PRODUCT_NAME = "IPSW Fetcher";
 				SWIFT_EMIT_LOC_STRINGS = YES;

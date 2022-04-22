@@ -9,19 +9,31 @@ import SwiftUI
 
 struct Sidebar: View {
     
+    @EnvironmentObject var data_object: DataObject
+    
     @State private var selected_sidebar_option: SidebarOption?
     
-    let sidebar_options = [SidebarOption(id: 0, title: "Devices", icon_name: "iphone"),
-                          SidebarOption(id: 1, title: "Firmwares", icon_name: "shippingbox"),
-                          SidebarOption(id: 2, title: "Local Files", icon_name: "doc"),
-                          SidebarOption(id: 3, title: "Downloads", icon_name: "arrow.down.app")]
+    let sidebar_options = [SidebarOption(id: 0, title: "sidebar_option_devices", icon_name: "iphone"),
+                          SidebarOption(id: 1, title: "sidebar_option_firmwares", icon_name: "shippingbox"),
+                          SidebarOption(id: 2, title: "sidebar_option_files", icon_name: "doc"),
+                          SidebarOption(id: 3, title: "sidebar_option_downloads", icon_name: "arrow.down.app")]
     
     var body: some View {
         NavigationView {
             List(selection: $selected_sidebar_option) {
                 ForEach(sidebar_options) { sidebar_option in
-                    NavigationLink(destination: ListView(sidebar_option: sidebar_option)) {
-                        SidebarRow(sidebar_option: sidebar_option)
+                    NavigationLink(destination: Content(sidebar_option: sidebar_option)) {
+                        HStack {
+                            Image (systemName: sidebar_option.icon_name)
+                                .font(.title)
+                            Text(LocalizedStringKey(sidebar_option.title))
+                            Spacer()
+                            if (sidebar_option.id == 3) {
+                                Text(String(data_object.download_tasks.count))
+                                    .bold()
+                            }
+                        }
+                        .padding()
                     }
                     .tag(sidebar_option)
                 }
@@ -33,11 +45,5 @@ struct Sidebar: View {
             }
         }
         .navigationTitle("IPSW Fetcher")
-    }
-}
-
-struct Sidebar_Previews: PreviewProvider {
-    static var previews: some View {
-        Sidebar()
     }
 }
