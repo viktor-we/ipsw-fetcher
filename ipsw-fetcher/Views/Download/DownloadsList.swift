@@ -13,9 +13,10 @@ struct DownloadsList: View {
     
     var body: some View {
         List {
-            ForEach(data_object.download_tasks, id:\.id) { task in
+            let download_tasks = data_object.get_download_tasks()
+            ForEach(download_tasks, id:\.id) { task in
                 DownloadRow(download_task: task)
-                    .listRowBackground((task.index  % 2 == 0) ? Color(.clear) : color_grey)
+                    .listRowBackground((download_tasks.firstIndex(of: task)! % 2 == 0) ? Color(.clear) : color_grey)
                     .padding(5)
                     .padding(.leading,10)
                     .padding(.trailing,10)

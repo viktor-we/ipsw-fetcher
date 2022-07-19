@@ -34,21 +34,15 @@ struct FirmwareList: View {
                 }) {
                     Image(systemName: "plus")
                     Text("firmwares_add_all")
-                        .padding()
                 }
                 Button(action: {
                     for firmware in (data_object.get_firmwares_for_version(version: firmware_version.version, os_name: firmware_version.os_name)) {
-                        if (firmware.os_name == "iOS") {
-                            data_object.delete_local_file_iphone(firmware.filename)
-                        } else if (firmware.os_name == "iPadOS") {
-                            data_object.delete_local_file_ipad(firmware.filename)
-                        }
+                        data_object.delete_local_file(filename: firmware.filename)
                     }
                 }) {
                     Image(systemName: "trash.fill")
                         .foregroundColor(Color.red)
                     Text("firmwares_delete_all")
-                        .padding()
                         .foregroundColor(Color.red)
                 }
             }
@@ -58,9 +52,10 @@ struct FirmwareList: View {
                 .font(.title)
                 .padding()
             List {
-                ForEach(data_object.get_firmwares_for_version(version: firmware_version.version, os_name: firmware_version.os_name), id: \.identifier) { firmware in
+                let firmwares = data_object.get_firmwares_for_version(version: firmware_version.version, os_name: firmware_version.os_name)
+                ForEach(firmwares, id: \.identifier) { firmware in
                     FirmwareRow(firmware:firmware)
-                        .listRowBackground((firmware.index  % 2 == 0) ? Color(.clear) : color_grey)
+                        .listRowBackground((firmwares.firstIndex(of: firmware)!  % 2 == 0) ? Color(.clear) : color_grey)
                         //.padding(5)
                         .padding(.leading,10)
                         .padding(.trailing,10)

@@ -27,20 +27,26 @@ struct FilesList: View {
 
     var body: some View {
         List {
-            Section(header:Text("files_ios")) {
-                ForEach(filtered_files_iphone, id:\.id) { localFile in
-                    LocalFilesRow(local_file: localFile, device_type: "iOS")
-                        .listRowBackground((localFile.index  % 2 == 0) ? Color(.clear) : color_grey)
-                        .padding(5)
-                        .padding(.leading,10)
-                        .padding(.trailing,10)
+            if(!filtered_files_iphone.isEmpty) {
+                Section(header:Text("files_ios")) {
+                    ForEach(filtered_files_iphone, id:\.id) { localFile in
+                        LocalFilesRow(local_file: localFile, device_type: "iPhone")
+                            .listRowBackground((localFile.index  % 2 == 0) ? Color(.clear) : color_grey)
+                            .padding(5)
+                            .padding(.leading,10)
+                            .padding(.trailing,10)
+                    }
                 }
             }
-        }
-        List {
-            Section(header:Text("files_ipados")) {
-                ForEach(filtered_files_ipad, id:\.id) { localFile in
-                    LocalFilesRow(local_file: localFile, device_type: "iPadOS")
+            if(!filtered_files_ipad.isEmpty) {
+                Section(header:Text("files_ipados")) {
+                    ForEach(filtered_files_ipad, id:\.id) { localFile in
+                        LocalFilesRow(local_file: localFile, device_type: "iPad")
+                            .listRowBackground((localFile.index  % 2 == 0) ? Color(.clear) : color_grey)
+                            .padding(5)
+                            .padding(.leading,10)
+                            .padding(.trailing,10)
+                    }
                 }
             }
         }

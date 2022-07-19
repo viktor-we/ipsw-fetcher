@@ -11,7 +11,7 @@ import SwiftUI
 class DownloadTask: NSObject, ObservableObject {
     
     var id = UUID()
-    var firmware: FirmwareIndex
+    var firmware: Firmware
     var resume_data: Data?
     var data_object: DataObject
     var bulk_download: Bool = false
@@ -27,14 +27,16 @@ class DownloadTask: NSObject, ObservableObject {
     @Published var downloaded_size = 0
     
     var save_path: URL {
-        if firmware.os_name == "iOS" {
+        if firmware.filename.contains("iPhone") {
             return local_files_iphone_path
-        } else {
+        } else if firmware.filename.contains("iPad") {
             return local_files_ipad_path
+        } else {
+            return local_files_itunes_path
         }
     }
     
-    init(firmware: FirmwareIndex, data_object: DataObject, index: Int) {
+    init(firmware: Firmware, data_object: DataObject, index: Int) {
         self.firmware = firmware
         self.data_object = data_object
         self.index = index
@@ -100,7 +102,6 @@ extension DownloadTask: URLSessionDownloadDelegate {
         DispatchQueue.main.async {
             self.completed = true
             self.downloading = false
-            self.data_object.fetch_local_files()
             self.data_object.alert_finished_download(filename: self.firmware.filename)
             if (self.bulk_download) {
                 self.data_object.start_next_download()
@@ -108,6 +109,7 @@ extension DownloadTask: URLSessionDownloadDelegate {
         }
         do {
             try fm.moveItem(at: location, to: save_path.appendingPathComponent(self.firmware.filename))
+            self.data_object.fetch_local_files()
         } catch {
             print("could not copy")
         }

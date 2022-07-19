@@ -11,7 +11,9 @@ struct FirmwareRow: View {
     
     @EnvironmentObject var data_object: DataObject
     
-    var firmware: FirmwareIndex
+    @State private var hovered = false
+    
+    var firmware: Firmware
     
     var body: some View {
         HStack {
@@ -22,27 +24,31 @@ struct FirmwareRow: View {
                 Text(firmware.filename)
             }
             Spacer()
+            if hovered {
+                Button(action: {
+                    data_object.create_download_task(firmware: firmware)
+                }) {
+                    Image(systemName: "plus")
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal,10)
+                Button(action: {
+                    data_object.delete_local_file(filename: firmware.filename)
+                }) {
+                    Image(systemName: "trash.fill")
+                        .foregroundColor(Color.red)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal,10)
+            }
             VStack(alignment: .trailing) {
                 let filesize = Float(firmware.filesize) / 1024 / 1024 / 1024
                 Text(String(format:"%.3f GB", filesize))
             }
             Image(systemName: firmware.is_downloaded ? "checkmark.rectangle.fill" : "xmark.rectangle")
-            Button(action: {
-                data_object.create_download_task(firmware: firmware)
-            }) {
-                Image(systemName: "plus")
-                    .padding()
-            }
-            Button(action: {
-                switch firmware.os_name {
-                case "iOS": data_object.delete_local_file_iphone(firmware.filename)
-                case "iPadOS": data_object.delete_local_file_ipad(firmware.filename)
-                default: print("No device type")
-                }
-            }) {
-                Image(systemName: "trash.fill")
-                    .foregroundColor(Color.red)
-            }
+        }
+        .onHover { isHovered in
+            self.hovered = isHovered
         }
         .padding(5)
     }

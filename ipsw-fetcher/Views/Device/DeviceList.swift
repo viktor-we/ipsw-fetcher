@@ -39,9 +39,10 @@ struct DeviceList: View {
                 .font(.title)
                 .padding(.leading)
             List {
-                ForEach(data_object.get_firmwares_for_device(identifier: device.identifier), id: \.buildid) { firmware in
+                let firmwares = data_object.get_firmwares_for_device(identifier: device.identifier)
+                ForEach(firmwares, id: \.buildid) { firmware in
                     DeviceRow(firmware:firmware)
-                        .listRowBackground((firmware.index  % 2 == 0) ? Color(.clear) : color_grey)
+                        .listRowBackground((firmwares.firstIndex(of: firmware)! % 2 == 0) ? Color(.clear) : color_grey)
                         //.padding(5)
                         .padding(.leading,10)
                         .padding(.trailing,10)

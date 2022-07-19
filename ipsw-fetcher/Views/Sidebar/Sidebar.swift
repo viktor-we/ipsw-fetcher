@@ -39,11 +39,12 @@ struct Sidebar: View {
                 }
             }
             .listStyle(SidebarListStyle())
-            .frame(minWidth:200)
+            .frame(width:200)
             .toolbar {
                 Text("")
             }
         }
         .navigationTitle("IPSW Fetcher")
+        .frame(minWidth:1200,minHeight: 600)
     }
 }

@@ -53,7 +53,7 @@ struct FirmwaresList: View {
                     Text("firmwares_signed_only")
                 }
                 Button(action: {
-                    device_data.find_firmware_versions()
+                    device_data.fetch_firmware_versions()
                 }) {
                     Image(systemName: "arrow.clockwise")
                 }

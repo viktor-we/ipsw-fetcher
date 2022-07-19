@@ -47,9 +47,7 @@ struct DevicesList: View {
                     Label("devices_favorites_only", systemImage: show_favorites ? "star.fill" : "star")
                 }
                 Button(action: {
-                    data_object.fetch_devices_from_api()
-                    data_object.fetch_firmwares_from_api()
-                    data_object.find_firmware_versions()
+                    data_object.fetch_from_api()
                 }) {
                     Image(systemName: "arrow.clockwise")
                 }

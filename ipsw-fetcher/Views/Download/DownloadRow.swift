@@ -42,44 +42,42 @@ struct DownloadRow: View {
                             download_task.pause_download()
                         }) {
                         Image(systemName: "pause.fill")
-                        Text("downloads_pause")
-                                .padding()
                     }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal,10)
                 } else {
                     Button(action: {
                             download_task.resume_download()
                         }) {
                         Image(systemName: "playpause.fill")
-                        Text("downloads_resume")
-                                .padding()
-                    } 
+                    }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal,10)
                 }
                 Button(action: {
                         download_task.cancel_download()
                     }) {
                     Image(systemName: "x.circle.fill")
                             .foregroundColor(Color.red)
-                    Text("downloads_cancel")
-                            .foregroundColor(Color.red)
-                            .padding()
                 }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal,10)
             } else if (downloaded_size_in_gb == 0) {
                 Button(action: {
                     download_task.start_download()
                 }) {
                     Image(systemName: "play.fill")
-                    Text("downloads_start")
-                        .padding()
                 }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal,10)
                 Button(action: {
                     data_object.delete_download_task(download_task: download_task)
                 }) {
                     Image(systemName: "trash.fill")
                         .foregroundColor(Color.red)
-                    Text("downloads_remove")
-                        .foregroundColor(Color.red)
-                        .padding()
                 }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal,10)
             } else if (filesize_in_gb == downloaded_size_in_gb) {
                 Text("downloads_completed")
                     .padding([.leading,.trailing])
@@ -88,10 +86,9 @@ struct DownloadRow: View {
                 }) {
                     Image(systemName: "trash.fill")
                         .foregroundColor(Color.red)
-                    Text("downloads_remove")
-                        .foregroundColor(Color.red)
-                        .padding()
                 }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal,10)
             }
         }
         .padding()
