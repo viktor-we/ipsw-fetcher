@@ -16,7 +16,6 @@ final class DataObject: ObservableObject {
             self.save_devices_model()
         }
     }
-    @Published var firmware_versions = [FirmwareVersion]()
     
     @Published var firmwares = [Firmware]() {
         didSet {
@@ -26,6 +25,8 @@ final class DataObject: ObservableObject {
             self.save_firmwares_model()
         }
     }
+    
+    @Published var firmware_versions = [FirmwareVersion]()
     
     @Published var firmwares_per_device = [FirmwaresPerDevice]()
     @Published var firmwares_per_version = [FirmwaresPerVersion]()
@@ -50,7 +51,7 @@ final class DataObject: ObservableObject {
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
-                print("All set!")
+                print("Notifications allowed")
             } else if let error = error {
                 print(error.localizedDescription)
             }
@@ -140,9 +141,7 @@ final class DataObject: ObservableObject {
                 if let data = data {
                     let devices_json: [DeviceJSON] = decode(data)
                     for device_json in devices_json {
-                        if !(device_json.name.contains("iBridge") || device_json.name.contains("Developer Transition Kit") ||
-                             device_json.name.contains("Watch") || device_json.name.contains("Mac") ||
-                             device_json.name.contains("TV") || device_json.name.contains("HomePod") || device_json.name.contains("iPod")) {
+                        if (device_json.name.contains("iPhone") || device_json.name.contains("iPad")) {
                             new_devices.append(Device(identifier: device_json.identifier, name: device_json.name))
                         }
                     }
@@ -207,7 +206,7 @@ final class DataObject: ObservableObject {
     func fetch_firmwares_for_device() {
         var new_firmwares_per_device = [FirmwaresPerDevice]()
         for device in self.devices {
-            var new = FirmwaresPerDevice(identifier: device.identifier, name: device.name)
+            var new = FirmwaresPerDevice(device: device)
             for i in 0..<firmwares.count {
                 if firmwares[i].identifier == device.identifier {
                     new.firmwares.append(i)
@@ -221,7 +220,7 @@ final class DataObject: ObservableObject {
     func fetch_firmwares_for_version() {
         var new_firmwares_per_version = [FirmwaresPerVersion]()
         for version in self.firmware_versions {
-            var new = FirmwaresPerVersion(version: version.version, buildid: version.buildid, os_name: version.os_name, signed: version.signed)
+            var new = FirmwaresPerVersion(firmware_version: version)
             for i in 0..<firmwares.count {
                 if firmwares[i].version == version.version && firmwares[i].os_name == version.os_name {
                     new.firmwares.append(i)
@@ -235,7 +234,7 @@ final class DataObject: ObservableObject {
     func get_firmwares_for_device(identifier: String) -> [Firmware] {
         var result = [Firmware]()
         for firmware_device in firmwares_per_device {
-            if firmware_device.identifier == identifier {
+            if firmware_device.device.identifier == identifier {
                 for index in firmware_device.firmwares {
                     result.append(firmwares[index])
                 }
@@ -247,7 +246,7 @@ final class DataObject: ObservableObject {
     func get_firmwares_for_version(version: String, os_name:String) -> [Firmware] {
         var result = [Firmware]()
         for firmware_version in firmwares_per_version {
-            if firmware_version.version == version && firmware_version.os_name == os_name {
+            if firmware_version.firmware_version.version == version && firmware_version.firmware_version.os_name == os_name {
                 for index in firmware_version.firmwares {
                     result.append(firmwares[index])
                 }
@@ -257,9 +256,9 @@ final class DataObject: ObservableObject {
     }
     
     func get_latest_firmware_for_device(identifier: String) -> String {
-        for device in firmwares_per_device {
-            if device.identifier == identifier {
-                return "\(firmwares[device.firmwares.first!].version)"
+        for firmware_device in firmwares_per_device {
+            if firmware_device.device.identifier == identifier {
+                return "\(firmwares[firmware_device.firmwares.first!].version)"
             }
         }
         return "None"

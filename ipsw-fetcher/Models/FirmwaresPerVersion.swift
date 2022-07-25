@@ -8,11 +8,6 @@
 import Foundation
 
 struct FirmwaresPerVersion {
-    var id = UUID()
-    var version: String
-    var buildid: String
-    var os_name: String
-    var signed: Bool
-    
+    var firmware_version: FirmwareVersion
     var firmwares = [Int]()
 }

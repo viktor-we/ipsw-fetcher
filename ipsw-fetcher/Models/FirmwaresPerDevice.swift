@@ -8,8 +8,6 @@
 import Foundation
 
 struct FirmwaresPerDevice {
-    var identifier: String
-    var name: String
-    
+    var device: Device
     var firmwares = [Int]()
 }
