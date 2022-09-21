@@ -44,3 +44,4 @@
 "downloads_cancel" = "Abbrechen";
 "downloads_remove" = "Entfernen";
 "downloads_completed" = "Abgeschlossen";
+"downloads_time_left" = "Verbleibende Zeit:";

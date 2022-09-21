@@ -44,3 +44,4 @@
 "downloads_cancel" = "Cancel";
 "downloads_remove" = "Remove";
 "downloads_completed" = "Completed";
+"downloads_time_left" = "Time left:";

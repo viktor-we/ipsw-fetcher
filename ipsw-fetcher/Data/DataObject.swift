@@ -47,7 +47,6 @@ final class DataObject: ObservableObject {
         }
         
         self.fetch_local_files()
-        self.mark_downloaded_firmwares()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
@@ -182,6 +181,7 @@ final class DataObject: ObservableObject {
             sem.wait()
         }
         self.firmwares = new_firmwares
+        self.fetch_local_files()
     }
     
     // FIRMWARE VERSIONS LIST
@@ -272,62 +272,50 @@ final class DataObject: ObservableObject {
     // Local files
     
     func fetch_local_files() {
-        //DispatchQueue.main.async {
-            self.local_files_iphone = [LocalFile]()
-            do {
-                let local_files = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
-                for i in 0..<local_files.count {
-                    let fileName = local_files[i].absoluteString
-                    self.local_files_iphone.append(LocalFile(file_name: String(fileName.split(separator:"/").last!),index: i))
-                }
-            } catch {
-                print("iPhone Files not found")
+        self.local_files_iphone = [LocalFile]()
+        do {
+            let local_files = try (fm.contentsOfDirectory(at: local_files_iphone_path,includingPropertiesForKeys: nil, options: []))
+            for i in 0..<local_files.count {
+                let file_name = local_files[i].absoluteString.split(separator:"/").last!
+                self.local_files_iphone.append(LocalFile(file_name: String(file_name),index: i))
             }
-            
-            self.local_files_ipad = [LocalFile]()
-            do {
-                let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_ipad_path,includingPropertiesForKeys: nil, options: []))
-                for i in 0..<localFilesStrings.count {
-                    let fileName = localFilesStrings[i].absoluteString
-                    self.local_files_ipad.append(LocalFile(file_name: String(fileName.split(separator:"/").last!),index: i))
-                }
-            } catch {
-                print("iPad Files not found")
+        } catch {
+            print("iPhone Files not found")
+        }
+        
+        self.local_files_ipad = [LocalFile]()
+        do {
+            let localFilesStrings = try (fm.contentsOfDirectory(at: local_files_ipad_path,includingPropertiesForKeys: nil, options: []))
+            for i in 0..<localFilesStrings.count {
+                let file_name = localFilesStrings[i].absoluteString.split(separator:"/").last!
+                self.local_files_ipad.append(LocalFile(file_name: String(file_name),index: i))
             }
-        //}
-    }
-    
-    func mark_downloaded_firmwares() {
-        //DispatchQueue.global(qos: .userInitiated).async {
-            for i in 0..<self.firmwares.count {
-                var is_downloaded = false
-                if self.firmwares[i].device_name.contains("iPhone") {
-                    for local_file_iphone in self.local_files_iphone {
-                        if (self.firmwares[i].filename == local_file_iphone.file_name) {
-                            is_downloaded = true
-                        }
-                    }
-                } else if self.firmwares[i].device_name.contains("iPad") {
-                    for local_file_ipad in self.local_files_ipad {
-                        if (self.firmwares[i].filename == local_file_ipad.file_name) {
-                            is_downloaded = true
-                        }
-                    }
-                } else if self.firmwares[i].device_name.contains("iPod") {
-                    for local_file_ipad in self.local_files_ipad {
-                        if (self.firmwares[i].filename == local_file_ipad.file_name) {
-                            is_downloaded = true
-                        }
+        } catch {
+            print("iPad Files not found")
+        }
+        
+        for i in 0..<self.firmwares.count {
+            var is_downloaded = false
+            if self.firmwares[i].device_name.contains("iPhone") {
+                for local_file_iphone in self.local_files_iphone {
+                    if (self.firmwares[i].filename == local_file_iphone.file_name) {
+                        is_downloaded = true
                     }
                 }
-                if (self.firmwares[i].is_downloaded != is_downloaded){
-                    DispatchQueue.main.async {
-                        self.firmwares[i].is_downloaded = is_downloaded
-                        
+            } else if self.firmwares[i].device_name.contains("iPad") {
+                for local_file_ipad in self.local_files_ipad {
+                    if (self.firmwares[i].filename == local_file_ipad.file_name) {
+                        is_downloaded = true
                     }
                 }
             }
-        //}
+            if (self.firmwares[i].is_downloaded != is_downloaded){
+                DispatchQueue.main.async {
+                    self.firmwares[i].is_downloaded = is_downloaded
+                    
+                }
+            }
+        }
     }
     
     func delete_local_file(filename: String) {
@@ -421,7 +409,7 @@ final class DataObject: ObservableObject {
         cancel_every_download()
         self.download_tasks.removeAll()
     }
-
+    
     func alert_finished_download(filename: String) {
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString("notification_title",comment: "")

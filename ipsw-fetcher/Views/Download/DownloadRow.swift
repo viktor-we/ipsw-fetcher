@@ -33,10 +33,24 @@ struct DownloadRow: View {
             if(downloaded_size_in_gb > 0 && filesize_in_gb != downloaded_size_in_gb) {
                 Text(String(format:"%.3f GB / %.3f GB", downloaded_size_in_gb, filesize_in_gb))
                     .font(.caption)
+                
                 ProgressView(value:download_task.progress)
                     .progressViewStyle(LinearProgressViewStyle())
                     .padding([.leading,.trailing])
                     .frame(width:200)
+                
+                if download_task.time_left > 0 {
+                    VStack(alignment: .leading) {
+                        Text("Time left")
+                        if download_task.time_left < 60 {
+                            Text("\(download_task.time_left)s")
+                        } else if download_task.time_left < 60*60 {
+                            Text("\(Int(download_task.time_left / 60))m \(Int(download_task.time_left % 60))s")
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                
                 if (download_task.downloading) {
                     Button(action: {
                             download_task.pause_download()
