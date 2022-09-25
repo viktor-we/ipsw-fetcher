@@ -34,6 +34,7 @@ struct DevicesList: View {
                     }
                 }
             }
+            .listStyle(.inset(alternatesRowBackgrounds: true))
             .frame(minWidth:400)
             .toolbar {
                 SearchBar(text: $text_field)

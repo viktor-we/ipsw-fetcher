@@ -33,6 +33,7 @@
 "files_ios" = "iPhone Software Updates";
 "files_ipados" = "iPad Software Updates";
 "files_ipodos" = "iPod Software Updates";
+"open_finder" = "In Finder öffnen";
 
 "downloads_start_all" = "Alle starten";
 "downloads_pause_all" = "Alle pausieren";

@@ -20,16 +20,11 @@ final class DataObject: ObservableObject {
     @Published var firmwares = [Firmware]() {
         didSet {
             self.fetch_firmware_versions()
-            self.fetch_firmwares_for_device()
-            self.fetch_firmwares_for_version()
             self.save_firmwares_model()
         }
     }
     
     @Published var firmware_versions = [FirmwareVersion]()
-    
-    @Published var firmwares_per_device = [FirmwaresPerDevice]()
-    @Published var firmwares_per_version = [FirmwaresPerVersion]()
     
     @Published var local_files_iphone = [LocalFile]()
     @Published var local_files_ipad = [LocalFile]()
@@ -203,41 +198,11 @@ final class DataObject: ObservableObject {
         return false
     }
     
-    func fetch_firmwares_for_device() {
-        var new_firmwares_per_device = [FirmwaresPerDevice]()
-        for device in self.devices {
-            var new = FirmwaresPerDevice(device: device)
-            for i in 0..<firmwares.count {
-                if firmwares[i].identifier == device.identifier {
-                    new.firmwares.append(i)
-                }
-            }
-            new_firmwares_per_device.append(new)
-        }
-        self.firmwares_per_device = new_firmwares_per_device
-    }
-    
-    func fetch_firmwares_for_version() {
-        var new_firmwares_per_version = [FirmwaresPerVersion]()
-        for version in self.firmware_versions {
-            var new = FirmwaresPerVersion(firmware_version: version)
-            for i in 0..<firmwares.count {
-                if firmwares[i].version == version.version && firmwares[i].os_name == version.os_name {
-                    new.firmwares.append(i)
-                }
-            }
-            new_firmwares_per_version.append(new)
-        }
-        self.firmwares_per_version = new_firmwares_per_version
-    }
-    
     func get_firmwares_for_device(identifier: String) -> [Firmware] {
         var result = [Firmware]()
-        for firmware_device in firmwares_per_device {
-            if firmware_device.device.identifier == identifier {
-                for index in firmware_device.firmwares {
-                    result.append(firmwares[index])
-                }
+        for firmware in firmwares {
+            if firmware.identifier == identifier {
+                result.append(firmware)
             }
         }
         return result
@@ -245,23 +210,12 @@ final class DataObject: ObservableObject {
     
     func get_firmwares_for_version(version: String, os_name:String) -> [Firmware] {
         var result = [Firmware]()
-        for firmware_version in firmwares_per_version {
-            if firmware_version.firmware_version.version == version && firmware_version.firmware_version.os_name == os_name {
-                for index in firmware_version.firmwares {
-                    result.append(firmwares[index])
-                }
+        for firmware in firmwares {
+            if firmware.version == version && firmware.os_name == os_name {
+                result.append(firmware)
             }
         }
         return result
-    }
-    
-    func get_latest_firmware_for_device(identifier: String) -> String {
-        for firmware_device in firmwares_per_device {
-            if firmware_device.device.identifier == identifier {
-                return "\(firmwares[firmware_device.firmwares.first!].version)"
-            }
-        }
-        return "None"
     }
     
     func get_download_tasks() -> [DownloadTask] {
@@ -319,19 +273,13 @@ final class DataObject: ObservableObject {
     }
     
     func delete_local_file(filename: String) {
-        var path: URL = local_files_itunes_path
-        if filename.contains("iPhone") {
-            path = local_files_iphone_path.appendingPathComponent(filename)
-        } else if filename.contains("iPad") {
-            path = local_files_ipad_path.appendingPathComponent(filename)
-        }
         for i in 0..<firmwares.count {
             if firmwares[i].filename == filename {
                 firmwares[i].is_downloaded = false
             }
         }
         do {
-            try fm.removeItem(at: path)
+            try fm.removeItem(at: local_files_iphone_path.appendingPathComponent(filename))
         } catch {
             print("file could not be deleted")
         }

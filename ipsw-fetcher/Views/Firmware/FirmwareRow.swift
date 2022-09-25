@@ -22,6 +22,7 @@ struct FirmwareRow: View {
                     .font(.system(size: 18))
                     .padding(.bottom,0.5)
                 Text(firmware.filename)
+                    .textSelection(.enabled)
             }
             Spacer()
             if hovered {

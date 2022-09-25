@@ -40,6 +40,7 @@ struct FirmwaresList: View {
                     }
                 }
             }
+            .listStyle(.inset(alternatesRowBackgrounds: true))
             .frame(minWidth:400)
             .toolbar {
                 SearchBar(text: $text_field)
@@ -53,7 +54,7 @@ struct FirmwaresList: View {
                     Text("firmwares_signed_only")
                 }
                 Button(action: {
-                    device_data.fetch_firmware_versions()
+                    device_data.fetch_from_api()
                 }) {
                     Image(systemName: "arrow.clockwise")
                 }

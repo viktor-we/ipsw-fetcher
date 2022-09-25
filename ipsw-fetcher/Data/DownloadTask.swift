@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class DownloadTask: NSObject, ObservableObject {
+class DownloadTask: NSObject, Identifiable, ObservableObject {
     
     var id = UUID()
     var firmware: Firmware
@@ -57,7 +57,7 @@ class DownloadTask: NSObject, ObservableObject {
             self.downloading = true
             self.download_task?.resume()
             self.time_start = DispatchTime.now()
-            self.last_update = DispatchTime.now()
+            self.last_update = DispatchTime.now() - 1*1000*1000*1000
         }
     }
     

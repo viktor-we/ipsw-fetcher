@@ -26,28 +26,21 @@ struct DeviceList: View {
                     Text(device.identifier)
                 }
                 Spacer()
-                VStack(alignment: .leading) {
-                    Text("devices_current_version")
-                    Text("\(device.os_name) \(data_object.get_latest_firmware_for_device(identifier: device.identifier))")
-                        .font(.title2)
-                }
-                .padding()
             }
             .padding(.vertical,30)
             .padding()
             Text("devices_firmwares")
                 .font(.title)
                 .padding(.leading)
-            List {
-                let firmwares = data_object.get_firmwares_for_device(identifier: device.identifier)
-                ForEach(firmwares, id: \.buildid) { firmware in
-                    DeviceRow(firmware:firmware)
-                        .listRowBackground((firmwares.firstIndex(of: firmware)! % 2 == 0) ? Color(.clear) : color_grey)
-                        //.padding(5)
-                        .padding(.leading,10)
-                        .padding(.trailing,10)
-                }
+            
+            List (data_object.get_firmwares_for_device(identifier: device.identifier)) { firmware in
+                DeviceRow(firmware:firmware)
+                    .padding(.leading,10)
+                    .padding(.trailing,10)
+                
             }
+            .listStyle(.inset(alternatesRowBackgrounds: true))
+            .environment(\.defaultMinListRowHeight, 75)
         }
         .frame(minWidth:600)
     }

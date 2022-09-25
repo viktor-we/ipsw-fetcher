@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Firmware: Hashable, Codable {
+struct Firmware: Identifiable, Hashable, Codable {
     var identifier, version, buildid, sha256sum: String
     var url: URL
     var filesize: Int
@@ -15,4 +15,6 @@ struct Firmware: Hashable, Codable {
     
     var device_name, os_name, filename: String
     var is_downloaded: Bool
+    
+    var id = UUID()
 }

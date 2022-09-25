@@ -23,6 +23,7 @@ struct DeviceRow: View {
                     .padding(.bottom,0.5)
                     .foregroundColor(firmware.signed ? Color.green : Color.red)
                 Text(firmware.filename)
+                    .textSelection(.enabled)
             }
             Spacer()
             if (hovered) {

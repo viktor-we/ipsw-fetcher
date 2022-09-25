@@ -31,7 +31,6 @@ struct FilesList: View {
                 Section(header:Text("files_ios")) {
                     ForEach(filtered_files_iphone, id:\.id) { localFile in
                         LocalFilesRow(local_file: localFile, device_type: "iPhone")
-                            .listRowBackground((localFile.index  % 2 == 0) ? Color(.clear) : color_grey)
                             .padding(5)
                             .padding(.leading,10)
                             .padding(.trailing,10)
@@ -42,7 +41,6 @@ struct FilesList: View {
                 Section(header:Text("files_ipados")) {
                     ForEach(filtered_files_ipad, id:\.id) { localFile in
                         LocalFilesRow(local_file: localFile, device_type: "iPad")
-                            .listRowBackground((localFile.index  % 2 == 0) ? Color(.clear) : color_grey)
                             .padding(5)
                             .padding(.leading,10)
                             .padding(.trailing,10)
@@ -50,7 +48,14 @@ struct FilesList: View {
                 }
             }
         }
+        .listStyle(.inset(alternatesRowBackgrounds: true))
+        .environment(\.defaultMinListRowHeight, 40)
         .toolbar {
+            Button(action: {
+                NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: local_files_itunes_path.path)
+            }) {
+                Text("open_finder")
+            }
             SearchBar(text: $text_field)
             Button(action: {
                 data_object.fetch_local_files()

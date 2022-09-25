@@ -12,16 +12,14 @@ struct DownloadsList: View {
     @EnvironmentObject var data_object: DataObject
     
     var body: some View {
-        List {
-            let download_tasks = data_object.get_download_tasks()
-            ForEach(download_tasks, id:\.id) { task in
-                DownloadRow(download_task: task)
-                    .listRowBackground((download_tasks.firstIndex(of: task)! % 2 == 0) ? Color(.clear) : color_grey)
-                    .padding(5)
-                    .padding(.leading,10)
-                    .padding(.trailing,10)
-            }
+        List(data_object.get_download_tasks()) { task in
+            DownloadRow(download_task: task)
+                .padding(5)
+                .padding(.leading,10)
+                .padding(.trailing,10)
         }
+        .listStyle(.inset(alternatesRowBackgrounds: true))
+        .environment(\.defaultMinListRowHeight, 90)
         .toolbar {
             Button (action: {
                 data_object.start_next_download()

@@ -15,8 +15,6 @@ struct Device: Hashable, Codable {
     var os_name: String {
         if self.name.contains("iPhone") {
             return "iOS"
-        } else if self.name.contains("iPod") {
-            return "iOS"
         } else if self.name.contains("iPad") {
             return "iPadOS"
         }

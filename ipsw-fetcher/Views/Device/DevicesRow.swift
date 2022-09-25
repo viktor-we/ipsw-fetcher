@@ -27,7 +27,6 @@ struct DevicesRow: View {
                 VStack(alignment: .leading) {
                     Text(data_object.devices[device_index].name)
                         .font(.system(size: 18))
-                    
                 }
             }
             .padding()
